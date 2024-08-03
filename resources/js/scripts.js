@@ -89,32 +89,165 @@ const loadNextBatch = () => {
  * @function
  * @returns {void}
  */
-const filterData = () => {
-    const query = searchInput.value.trim().toLowerCase();
+// const filterData = () => {
+//     const query = searchInput.value.trim().toLowerCase();
 
-    if (query === '') {
-        // If the search input is empty, use the full dataset
-        filteredData = pokemonData;
-    } else {
-        // Filter data by name or ID
-        filteredData = pokemonData.filter(pokemon =>
-            pokemon.name.toLowerCase().includes(query) ||
-            pokemon.id.toString().includes(query)
-        );
+//     if (query === '') {
+//         // If the search input is empty, use the full dataset
+//         filteredData = pokemonData;
+//     } else {
+//         // Filter data by name or ID
+//         filteredData = pokemonData.filter(pokemon =>
+//             pokemon.name.toLowerCase().includes(query) ||
+//             pokemon.id.toString().includes(query)
+//         );
+//     }
+
+//     // Reset batch index and render filtered data
+//     currentBatchIndex = 0;
+//     cardsContainer.innerHTML = ''; // Clear current cards for filtered results
+
+//     // Show "No Pokémons found" message if no results
+//     if (filteredData.length === 0) {
+//         noResultsMessage.style.display = 'block';
+//     } else {
+//         noResultsMessage.style.display = 'none';
+//         loadNextBatch();
+//     }
+// };
+
+/**
+ * Gets the selected filters for types, colors, and genders.
+ *
+ * @function
+ * @returns {Object} - Object containing arrays of selected types, colors, and genders.
+ */
+const getSelectedFilters = () => {
+    const selectedFilters = {
+        types: [],
+        colors: [],
+        genders: []
+    };
+
+    // Get selected types
+    document.querySelectorAll(".sidebar__type:checked").forEach((checkbox) => {
+        selectedFilters.types.push(checkbox.value);
+    });
+
+    // Get selected colors
+    document.querySelectorAll(".sidebar__checkbox:checked").forEach((checkbox) => {
+        selectedFilters.colors.push(checkbox.value);
+    });
+
+    // Get selected genders
+    document.querySelectorAll(".sidebar__radio:checked").forEach((radio) => {
+        selectedFilters.genders.push(radio.id);
+    });
+
+    return selectedFilters;
+};
+
+const typeCache = new Map();
+
+const checkMatchType = async (pokemonName, types) => {
+    if (types.length === 0) return true; 
+
+    for (const type of types) {
+        if (!typeCache.has(type)) {
+            const typeElm = typeMap.get(type);
+
+            if (typeElm.data.length === 0) {
+                const fetchPromise = apiService.fetchSpecificTypePokemons(typeElm.url)
+                    .then(pokemonList => {
+                        typeElm.data = pokemonList;
+                        return pokemonList;
+                    })
+                    .catch(error => {
+                        console.error(`Error fetching type data for ${type}:`, error);
+                        return []; 
+                    });
+
+                typeCache.set(type, fetchPromise);
+            }
+        }
+
+        const typeData = await typeCache.get(type);
+        if (typeData.includes(pokemonName)) return true; 
     }
 
-    // Reset batch index and render filtered data
-    currentBatchIndex = 0;
-    cardsContainer.innerHTML = ''; // Clear current cards for filtered results
+    return false; 
+};
 
-    // Show "No Pokémons found" message if no results
-    if (filteredData.length === 0) {
-        noResultsMessage.style.display = 'block';
-    } else {
-        noResultsMessage.style.display = 'none';
-        loadNextBatch();
+const colorCache = new Map();
+
+const checkMatchColor = async (pokemonName, colors) => {
+    if (colors.length === 0) return true; 
+
+    for (const type of colors) {
+        if (!colorCache.has(type)) {
+            const typeElm = typeMap.get(type);
+
+            if (typeElm.data.length === 0) {
+                const fetchPromise = apiService.fetchSpecificColorPokemons(typeElm.url)
+                    .then(pokemonList => {
+                        typeElm.data = pokemonList;
+                        return pokemonList;
+                    })
+                    .catch(error => {
+                        console.error(`Error fetching type data for ${type}:`, error);
+                        return []; 
+                    });
+
+                    colorCache.set(type, fetchPromise);
+            }
+        }
+
+        const typeData = await colorCache.get(type);
+        if (typeData.includes(pokemonName)) return true; 
+    }
+
+    return false; 
+};
+
+const filterData = async () => {
+    const query = searchInput.value.trim().toLowerCase();
+    const { types, colors, genders } = getSelectedFilters();
+
+    await Promise.all(Array.from(typeCache.values()));
+
+    const filteredDataPromises = pokemonData.map(async pokemon => {
+        const matchesQuery = query === '' || 
+            pokemon.name.toLowerCase().includes(query) ||
+            pokemon.id.toString().includes(query);
+
+        // Comprobar tipo, color y género de forma asincrónica
+        const matchesType = await checkMatchType(pokemon.name, types);
+        const matchesColor = await checkMatchColor(pokemon.name, colors);
+        const matchesGender = genders.includes('all') || genders.includes(pokemon.gender);
+
+        return matchesQuery && matchesType && matchesColor && matchesGender ? pokemon : null;
+    });
+
+    try {
+        const filteredDataResults = await Promise.all(filteredDataPromises);
+        filteredData = filteredDataResults.filter(pokemon => pokemon !== null);
+
+        currentBatchIndex = 0;
+        cardsContainer.innerHTML = ''; 
+        
+        if (filteredData.length === 0) {
+            noResultsMessage.style.display = 'block';
+        } else {
+            noResultsMessage.style.display = 'none';
+            loadNextBatch();
+        }
+    } catch (error) {
+        console.error('Error filtering data:', error);
+        noResultsMessage.style.display = 'block'; 
     }
 };
+
+
 
 /**
  * Loads initial data and renders the first batch of cards.
@@ -126,10 +259,10 @@ const filterData = () => {
 const loadInitialData = async () => {
     pokemonData = await apiService.fetchPokemonData();
     filterData(); // Apply initial filter based on the empty search query
-    
-    typeMap = await apiService.fetchPokemonTypes();
-    colorMap = await apiService.fetchPokemonColors();
-    genderMap = await apiService.fetchPokemonGenders();
+
+    typeMap = new Map(Object.entries(await apiService.fetchPokemonTypes()));
+    colorMap = new Map(Object.entries(await apiService.fetchPokemonColors()));
+    genderMap = new Map(Object.entries(await apiService.fetchPokemonGenders()));
 };
 
 // Set up the event to load more data when the button is clicked.
@@ -137,6 +270,9 @@ loadMoreButton.addEventListener('click', loadNextBatch);
 
 // Set up the event to filter data when the search input changes.
 searchInput.addEventListener('input', filterData);
+
+// Set up the event to filter data when any checkbox or radio button changes.
+document.querySelector('.sidebar__filters-fieldset').addEventListener('change', filterData);
 
 // Set up the event to load initial data when the document is loaded.
 document.addEventListener('DOMContentLoaded', loadInitialData);
