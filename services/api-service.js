@@ -64,7 +64,7 @@ class APIService {
             return this.transformStructuredData(result.results);
         } catch (error) {
             console.error('[fetchPokemonTypes] Error fetching data:', error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -82,7 +82,7 @@ class APIService {
             return result.pokemon.map(elm => elm.pokemon.name);
         } catch (error) {
             console.error('[fetchSpecificTypePokemons] Error fetching data:', error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -99,7 +99,7 @@ class APIService {
             return this.transformStructuredData(result.results);
         } catch (error) {
             console.error('[fetchPokemonColors] Error fetching data:', error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -117,7 +117,7 @@ class APIService {
             return result.pokemon_species.map(elm => elm.name);
         } catch (error) {
             console.error('[fetchSpecificColorPokemons] Error fetching data:', error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -134,7 +134,7 @@ class APIService {
             return this.transformStructuredData(result.results);
         } catch (error) {
             console.error('[fetchPokemonGenders] Error fetching data:', error);
-            throw error; 
+            throw error;
         }
     }
 
@@ -152,8 +152,33 @@ class APIService {
             return result.pokemon_species_details.map(elm => elm.pokemon_species.name);
         } catch (error) {
             console.error('[fetchSpecificGenderPokemons] Error fetching data:', error);
-            throw error; 
+            throw error;
         }
+    }
+
+    async fetchMoreInfoPokemons(url) {
+        try {
+            const response = await fetch(url);
+            const result = await response.json();
+            return this.structureMoreInfo(result);
+        } catch (error) {
+            console.error('[fetchSpecificGenderPokemons] Error fetching data:', error);
+            throw error;
+        }
+    }
+
+    structureMoreInfo(data) {
+        let output = '';
+        output += `Number: #${data.id} \n`;
+        output += `Name: ${data.name} \n`;
+        output += `Color: ${data.color.name} \n`;
+        output += `Capture rate: ${data.capture_rate} \n`;
+        output += `Habitat: ${data.habitat.name} \n`;
+        output += `Egg groups: ${data.egg_groups.map(gr => gr.name).toString()} \n`;
+        output += `Is legendary: ${data.is_legendary ? 'Yes' : 'No'} \n`;
+        output += `Is mystical: ${data.is_mythical ? 'Yes' : 'No'} \n`;
+
+        return output;
     }
 
     /**

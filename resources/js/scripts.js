@@ -80,7 +80,7 @@ let genderMap = new Map();
 /**
  * Renders a list of Pokémon cards in the container.
  *
- * @param {Array<{ name: string, image: string }>} pokemonList - List of Pokémon objects, each with an id, a name and an image URL.
+ * @param {Array<{ id: number, name: string, image: string, url: string  }>} pokemonList - List of Pokémon objects, each with an id, a name and an image URL.
  * @returns {void}
  */
 const renderCards = (pokemonList) => {
@@ -89,6 +89,7 @@ const renderCards = (pokemonList) => {
         card.setAttribute('id', pokemon.id);
         card.setAttribute('name', pokemon.name);
         card.setAttribute('image', pokemon.image);
+        card.setAttribute('url', pokemon.url);
         cardsContainer.appendChild(card);
     });
 };
