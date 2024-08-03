@@ -26,11 +26,11 @@ class APIService {
      * @returns {Promise<void>} - A promise that resolves when the data has been fetched and transformed.
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
-    async fetchData() {
+    async fetchPokemonData() {
         try {
             const response = await fetch(`${API_BASE_URL}/pokedex/national`);
             const result = await response.json();
-            return this.transformData(result.pokemon_entries);
+            return this.transformPokemonData(result.pokemon_entries);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -42,13 +42,50 @@ class APIService {
      * @param {Array<Object>} wholeData - The raw Pokémon data from the API.
      * @returns {Array<Object>} - The transformed Pokémon data.
      */
-    transformData(wholeData) {
+    transformPokemonData(wholeData) {
         return wholeData.map(pokemonEntry => ({
             id: pokemonEntry.entry_number,
             name: pokemonEntry.pokemon_species.name,
             image: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(pokemonEntry.entry_number).padStart(3, '0')}.png`,
             url: pokemonEntry.pokemon_species.url
         }));
+    }
+
+    async fetchPokemonTypes() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/pokemon-color`);
+            const result = await response.json();
+            return this.transformStructuredData(result.results);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    async fetchPokemonColors() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/pokemon-color`);
+            const result = await response.json();
+            return this.transformStructuredData(result.results);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    async fetchPokemonGenders() {
+        try {
+            const response = await fetch(`${API_BASE_URL}/gender`);
+            const result = await response.json();
+            return this.transformStructuredData(result.results);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    transformStructuredData(wholeData) {
+        return wholeData.reduce((acc, { name, url }) => {
+            acc[name] = {url: url, data: []};
+            return acc;
+        }, {});
     }
 }
 

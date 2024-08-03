@@ -42,7 +42,10 @@ const batchSize = 20;
 /** 
 * @property {Array<Object>} data - Array to hold Pokémon data.
 */
-let data = [];
+let pokemonData = [];
+let typeMap = new Map();
+let colorMap = new Map();
+let genderMap = new Map();
 
 
 /**
@@ -91,10 +94,10 @@ const filterData = () => {
 
     if (query === '') {
         // If the search input is empty, use the full dataset
-        filteredData = data;
+        filteredData = pokemonData;
     } else {
         // Filter data by name or ID
-        filteredData = data.filter(pokemon =>
+        filteredData = pokemonData.filter(pokemon =>
             pokemon.name.toLowerCase().includes(query) ||
             pokemon.id.toString().includes(query)
         );
@@ -121,8 +124,12 @@ const filterData = () => {
  * @returns {Promise<void>} - A promise that resolves when the initial data has been loaded and cards have been rendered.
  */
 const loadInitialData = async () => {
-    data = await apiService.fetchData();
+    pokemonData = await apiService.fetchPokemonData();
     filterData(); // Apply initial filter based on the empty search query
+    
+    typeMap = await apiService.fetchPokemonTypes();
+    colorMap = await apiService.fetchPokemonColors();
+    genderMap = await apiService.fetchPokemonGenders();
 };
 
 // Set up the event to load more data when the button is clicked.
