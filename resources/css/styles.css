@@ -103,6 +103,26 @@
   gap: 5px;
   color: white;
 }
+.sidebar__checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+.sidebar__checkbox--hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
 .sidebar__color-group {
   display: grid;
   gap: 10px;
@@ -114,6 +134,47 @@
   border-radius: 4px;
   border: 1px solid #ccc;
   cursor: pointer;
+  position: relative;
+}
+.sidebar__color-label--blue {
+  background-color: blue;
+}
+.sidebar__color-label--green {
+  background-color: green;
+}
+.sidebar__color-label--yellow {
+  background-color: yellow;
+}
+.sidebar__color-label--pink {
+  background-color: pink;
+}
+.sidebar__color-label--red {
+  background-color: red;
+}
+.sidebar__color-label--white {
+  background-color: white;
+}
+.sidebar__color-label--brown {
+  background-color: brown;
+}
+.sidebar__color-label--purple {
+  background-color: purple;
+}
+.sidebar__color-label--orange {
+  background-color: orange;
+}
+.sidebar__color-label--black {
+  background-color: black;
+}
+.sidebar__checkbox:checked + .sidebar__color-label::after {
+  content: '\2713';
+  color: #849ea3;
+  font-size: 16px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  display: block;
 }
 .sidebar__radio-group {
   display: flex;
@@ -132,12 +193,34 @@
 }
 .content {
   flex: 3;
-  padding: 20px;
+  padding: 0 20px;
+}
+.content__title {
+  color: white;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.content__no-results {
+  color: white;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 20px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  text-align: center;
+  font-size: 1.5em;
 }
 .content__cards {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  align-items: center;
+  justify-content: center;
 }
 .content__button {
   margin-top: 20px;
@@ -147,28 +230,4 @@
   color: #fff;
   cursor: pointer;
   border-radius: 4px;
-}
-.card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  text-align: center;
-  transition: transform 0.2s;
-}
-.card:hover {
-  transform: scale(1.05);
-}
-.card__image {
-  width: 100%;
-  height: auto;
-}
-.card__text {
-  padding: 16px;
-  background-color: #f5f5f5;
-}
-.card__text p {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: white;
 }

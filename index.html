@@ -7,17 +7,17 @@
     <title>▷ The best POKÉMON finder 🔍 | POKE:CODE</title>
 
     <!-- SEO -->
-    <meta name="description"
-        content="✅">
+    <meta name="description" content="✅">
     <meta name="keywords"
         content="cuanto falta, reloj, contador, cuenta regresiva, evento, reloj de cuenta regresiva" />
     <link rel="canonical" href="https://appasiona.github.io/poke-code/" />
 
     <meta property="og:title" content="▷ The best POKÉMON finder 🔍 | POKE:CODE" />
-	<meta property="og:description" content="✅" />
-	<meta property="og:url" content="https://appasiona.github.io/poke-code/" />
-	<meta property="og:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
-    <meta property="og:image:secure_url" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
+    <meta property="og:description" content="✅" />
+    <meta property="og:url" content="https://appasiona.github.io/poke-code/" />
+    <meta property="og:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
+    <meta property="og:image:secure_url"
+        content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="POKE:CODE" />
@@ -34,10 +34,10 @@
 
     <link rel="alternate" hreflang="es" href="https://appasiona.github.io/poke-code/" />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8" />
-	
-    <link rel="icon" href="resources/images/favicon.ico"> 
+
+    <link rel="icon" href="resources/images/favicon.ico">
 
     <script type='application/ld+json'>
     {
@@ -211,42 +211,72 @@
                     <fieldset class="sidebar__fieldset">
                         <legend class="sidebar__legend">Color</legend>
                         <div class="sidebar__color-group">
-                            <label class="sidebar__color-label" style="background-color: blue;"
+                            <input type="checkbox" id="color-blue" name="color" value="blue"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--blue" for="color-blue"
                                 aria-label="Blue"></label>
-                            <label class="sidebar__color-label" style="background-color: green;"
+
+                            <input type="checkbox" id="color-green" name="color" value="green"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--green" for="color-green"
                                 aria-label="Green"></label>
                         </div>
                         <div class="sidebar__color-group">
-                            <label class="sidebar__color-label" style="background-color: yellow;"
+                            <input type="checkbox" id="color-yellow" name="color" value="yellow"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--yellow" for="color-yellow"
                                 aria-label="Yellow"></label>
-                            <label class="sidebar__color-label" style="background-color: pink;"
+
+                            <input type="checkbox" id="color-pink" name="color" value="pink"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--pink" for="color-pink"
                                 aria-label="Pink"></label>
                         </div>
                         <div class="sidebar__color-group">
-                            <label class="sidebar__color-label" style="background-color: red;" aria-label="Red"></label>
-                            <label class="sidebar__color-label" style="background-color: white;"
+                            <input type="checkbox" id="color-red" name="color" value="red"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--red" for="color-red"
+                                aria-label="Red"></label>
+
+                            <input type="checkbox" id="color-white" name="color" value="white"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--white" for="color-white"
                                 aria-label="White"></label>
                         </div>
                         <div class="sidebar__color-group">
-                            <label class="sidebar__color-label" style="background-color: brown;"
+                            <input type="checkbox" id="color-brown" name="color" value="brown"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--brown" for="color-brown"
                                 aria-label="Brown"></label>
-                            <label class="sidebar__color-label" style="background-color: purple;"
+
+                            <input type="checkbox" id="color-purple" name="color" value="purple"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--purple" for="color-purple"
                                 aria-label="Purple"></label>
                         </div>
                         <div class="sidebar__color-group">
-                            <label class="sidebar__color-label" style="background-color: orange;"
+                            <input type="checkbox" id="color-orange" name="color" value="orange"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--orange" for="color-orange"
                                 aria-label="Orange"></label>
-                            <label class="sidebar__color-label" style="background-color: black;"
+
+                            <input type="checkbox" id="color-black" name="color" value="black"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--black" for="color-black"
                                 aria-label="Black"></label>
                         </div>
-
                     </fieldset>
+
+
+
+
+
                     <fieldset class="sidebar__fieldset">
                         <legend class="sidebar__legend">Gender</legend>
                         <div class="sidebar__radio-group">
                             <label class="sidebar__radio-label" for="all">
                                 <input type="radio" name="gender" class="sidebar__radio" id="all"
-                                    aria-labelledby="all-label">
+                                    aria-labelledby="all-label" checked>
                                 <span id="all-label">All</span>
                             </label>
                             <label class="sidebar__radio-label" for="male">

@@ -140,7 +140,29 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        color: white
+        color: white;
+    }
+
+    &__checkbox {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+    
+    &__checkbox--hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
     }
 
     &__color-group {
@@ -155,6 +177,58 @@
         border-radius: 4px;
         border: 1px solid #ccc;
         cursor: pointer;
+        position: relative;
+    }
+
+    &__color-label--blue {
+        background-color: blue;
+    }
+
+    &__color-label--green {
+        background-color: green;
+    }
+
+    &__color-label--yellow {
+        background-color: yellow;
+    }
+
+    &__color-label--pink {
+        background-color: pink;
+    }
+
+    &__color-label--red {
+        background-color: red;
+    }
+
+    &__color-label--white {
+        background-color: white;
+    }
+
+    &__color-label--brown {
+        background-color: brown;
+    }
+
+    &__color-label--purple {
+        background-color: purple;
+    }
+
+    &__color-label--orange {
+        background-color: orange;
+    }
+
+    &__color-label--black {
+        background-color: black;
+    }
+
+    &__checkbox:checked + .sidebar__color-label::after {
+        content: '\2713'; 
+        color: #849ea3; 
+        font-size: 16px; 
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        display: block; 
     }
 
     &__radio-group {
@@ -172,9 +246,10 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        color: white
+        color: white;
     }
 }
+
 
 
 
