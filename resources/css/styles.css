@@ -1,0 +1,174 @@
+.page {
+  font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+  padding: 20px;
+}
+.page__background {
+  background: black;
+}
+.header {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+@media (min-width: 768px) {
+  .header {
+    justify-content: space-between;
+  }
+}
+@media (max-width: 767px) {
+  .header {
+    flex-direction: column;
+  }
+}
+.header__logo {
+  flex: 1;
+}
+.header__img {
+  max-width: 350px;
+}
+.header__search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 2;
+  max-width: 400px;
+}
+@media (min-width: 768px) {
+  .header__search {
+    margin-left: auto;
+  }
+}
+@media (max-width: 767px) {
+  .header__search {
+    margin-top: 10px;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+.header__input {
+  width: 100%;
+  padding: 10px 35px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+}
+.header__search-icon--left {
+  position: absolute;
+  color: #6c757d;
+  font-size: 1.2em;
+  left: 10px;
+  pointer-events: none;
+}
+.header__search-icon--right {
+  position: absolute;
+  color: #6c757d;
+  font-size: 1.2em;
+  right: 10px;
+  pointer-events: none;
+}
+.main {
+  display: flex;
+}
+.sidebar__form {
+  display: flex;
+  flex-direction: column;
+}
+.sidebar__fieldset {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  display: flex;
+}
+.sidebar__legend {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: white;
+  padding: 0 10px;
+}
+.sidebar__type-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-direction: column;
+}
+.sidebar__type {
+  width: 20px;
+  height: 20px;
+}
+.sidebar__type-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+.sidebar__color-group {
+  display: grid;
+  gap: 10px;
+  margin-right: 5px;
+}
+.sidebar__color-label {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.sidebar__radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sidebar__radio {
+  width: 20px;
+  height: 20px;
+}
+.sidebar__radio-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: white;
+}
+.content {
+  flex: 3;
+  padding: 20px;
+}
+.content__cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.content__button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.2s;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+.card__image {
+  width: 100%;
+  height: auto;
+}
+.card__text {
+  padding: 16px;
+  background-color: #f5f5f5;
+}
+.card__text p {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}

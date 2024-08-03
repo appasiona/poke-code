@@ -1,0 +1,203 @@
+// @background-gradient: linear-gradient(#e66465, #9198e5);
+// @background-gradient: linear-gradient(to right, #434343 0%, black 100%);
+// @header-padding: 20px;
+// @search-input-border: 1px solid #ccc;
+// @search-input-padding: 10px;
+// @search-input-radius: 20px;
+@icon-color: #6c757d;
+@icon-size: 1.2em;
+@icon-spacing: 10px;
+// @search-icon-size: 2.5em;
+
+.page {
+
+    font-family: "Gill Sans Extrabold", Helvetica, sans-serif;
+    padding: 20px;
+
+    &__background {
+        background: black;
+    }
+}
+
+.header {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    @media (min-width: 768px) {
+        justify-content: space-between;
+    }
+
+    @media (max-width: 767px) {
+        flex-direction: column;
+    }
+
+    // header__logo
+    &__logo {
+        flex: 1;
+    }
+
+    // header__img
+    &__img {
+        max-width: 350px;
+    }
+
+    // header__search
+    &__search {
+        display: flex;
+        align-items: center;
+        position: relative;
+        flex: 2;
+        max-width: 400px;
+
+        @media (min-width: 768px) {
+            margin-left: auto;
+        }
+
+        @media (max-width: 767px) {
+            margin-top: 10px;
+            width: 100%;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+
+    // header__input
+    &__input {
+        width: 100%;
+        padding: 10px 35px;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+    }
+
+    // search icon 
+    &__search-icon--left {
+        position: absolute;
+        color: @icon-color;
+        font-size: @icon-size;
+        left: @icon-spacing;
+        pointer-events: none;
+    }
+
+    // remove icon
+    &__search-icon--right {
+        position: absolute;
+        color: @icon-color;
+        font-size: @icon-size;
+        right: @icon-spacing;
+        pointer-events: none;
+    }
+}
+
+
+
+// Variables
+// @toggle-size: 2em;
+// @fieldset-padding: 10px;
+// @legend-font-weight: bold;
+
+
+// Estilos para el bloque `main`
+.main {
+    display: flex;
+}
+
+.sidebar {
+    &__form {
+      display: flex;
+      flex-direction: column;
+    }
+  
+    &__fieldset {
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+    }
+  
+    &__legend {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+      padding: 0 10px;
+    }
+  
+    &__type-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex-direction: column;
+    }
+  
+    &__type {
+      width: 20px;
+      height: 20px;
+    }
+  
+    &__type-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: white
+    }
+  
+    &__color-group {
+      display: grid;
+      gap: 10px;
+      margin-right: 5px;
+    }
+  
+    &__color-label {
+      width: 30px;
+      height: 30px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+  
+    &__radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    &__radio {
+      width: 20px;
+      height: 20px;
+    }
+  
+    &__radio-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: white
+    }
+  }
+  
+
+
+// Estilos para el bloque `content`
+.content {
+    flex: 3;
+    padding: 20px;
+
+    // Estilos para las tarjetas dentro del bloque `content`
+    &__cards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    // Estilos para el botón de cargar más dentro del bloque `content`
+    &__button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+}

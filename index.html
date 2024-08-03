@@ -1,6 +1,288 @@
-<html>
-  <head></head>
-  <body>
-    <h1>Hello POKE:CODE</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>▷ The best POKÉMON finder 🔍 | POKE:CODE</title>
+
+    <!-- SEO -->
+    <meta name="description"
+        content="✅">
+    <meta name="keywords"
+        content="cuanto falta, reloj, contador, cuenta regresiva, evento, reloj de cuenta regresiva" />
+    <link rel="canonical" href="https://appasiona.github.io/poke-code/" />
+
+    <meta property="og:title" content="▷ The best POKÉMON finder 🔍 | POKE:CODE" />
+	<meta property="og:description" content="✅" />
+	<meta property="og:url" content="https://appasiona.github.io/poke-code/" />
+	<meta property="og:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
+    <meta property="og:image:secure_url" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="POKE:CODE" />
+    <meta property="og:image:width" content="292" />
+    <meta property="og:image:height" content="289" />
+    <meta property="article:publisher" content="https://www.facebook.com/appasiona" />
+    <meta property="article:author" content="https://www.facebook.com/appasiona" />
+    <meta name="twitter:site" content="@appasiona" />
+    <meta name="twitter:creator" content="@appasiona" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="▷ The best POKÉMON finder 🔍 | POKE:CODE" />
+    <meta name="twitter:description" content="✅" />
+    <meta name="twitter:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
+
+    <link rel="alternate" hreflang="es" href="https://appasiona.github.io/poke-code/" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+	
+    <link rel="icon" href="resources/images/favicon.ico"> 
+
+    <script type='application/ld+json'>
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+        {
+            "@type": "WebSite",
+            "@id": "https://appasiona.github.io/poke-code/#website",
+            "url": "https://appasiona.github.io/poke-code/",
+            "name": "POKE:CODE",
+            "inLanguage": "es",
+            "sameAs": [
+            "https://www.facebook.com/appasiona",
+            "https://twitter.com/appasiona/"
+            ]
+        },
+        {
+            "@type": "ImageObject",
+            "@id": "https://appasiona.github.io/poke-code//#primaryimage",
+            "inLanguage": "es",
+            "url": "https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png",
+            "width": 1600,
+            "height": 1600,
+            "caption": "POKE:CODE"
+        },
+        {
+            "@type": "WebPage",
+            "@id": "https://appasiona.github.io/poke-code//#webpage",
+            "url": "https://appasiona.github.io/poke-code/",
+            "name": "▷ The best POKÉMON finder 🔍 | POKE:CODE",
+            "isPartOf": {
+            "@id": "https://appasiona.github.io/poke-code/#website"
+            },
+            "inLanguage": "es",
+            "primaryImageOfPage": {
+            "@id": "https://appasiona.github.io/poke-code//#primaryimage"
+            },
+            "datePublished": "2024-08-03T09:00:05+00:00",
+            "dateModified": "2024-08-03T18:16:59+00:00",
+            "description": "✅",
+            "potentialAction": [
+            {
+                "@type": "ReadAction",
+                "target": [
+                "https://appasiona.github.io/poke-code/"
+                ]
+            }
+            ]
+        }
+        ]
+    }
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="resources/css/styles.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css"
+        integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="page page__background">
+    <header class="header">
+        <div class="header__logo">
+            <img class="header__img" src="resources/images/poke-code-logo.png" alt="Logo POKE:CODE">
+        </div>
+        <div class="header__search">
+            <i class="bi bi-search header__search-icon--left"></i>
+            <input type="search" id="search" class="header__input" placeholder="Search">
+            <i class="bi bi-x-lg header__search-icon--right"></i>
+        </div>
+    </header>
+    <main class="main">
+        <aside class="sidebar" id="sidebar">
+            <!-- <button class="sidebar__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button> -->
+            <form class="sidebar__form" aria-label="Filters">
+                <fieldset class="sidebar__">
+                    <legend class="sidebar__legend"><i class="bi bi-funnel"></i> Filters</legend>
+                    <fieldset class="sidebar__fieldset">
+                        <legend class="sidebar__legend">Type</legend>
+                        <div class="sidebar__type-group">
+                            <label class="sidebar__type-label" for="bug">
+                                <input type="checkbox" class="sidebar__type" id="bug" aria-labelledby="bug-label">
+                                <span id="bug-label">Bug</span>
+                            </label>
+                            <label class="sidebar__type-label" for="electric">
+                                <input type="checkbox" class="sidebar__type" id="electric"
+                                    aria-labelledby="electric-label">
+                                <span id="electric-label">Electric</span>
+                            </label>
+                            <label class="sidebar__type-label" for="water">
+                                <input type="checkbox" class="sidebar__type" id="water" aria-labelledby="water-label">
+                                <span id="water-label">Water</span>
+                            </label>
+                            <label class="sidebar__type-label" for="ground">
+                                <input type="checkbox" class="sidebar__type" id="ground" aria-labelledby="ground-label">
+                                <span id="ground-label">Ground</span>
+                            </label>
+                            <label class="sidebar__type-label" for="fire">
+                                <input type="checkbox" class="sidebar__type" id="fire" aria-labelledby="fire-label">
+                                <span id="fire-label">Fire</span>
+                            </label>
+                            <label class="sidebar__type-label" for="ice">
+                                <input type="checkbox" class="sidebar__type" id="ice" aria-labelledby="ice-label">
+                                <span id="ice-label">Ice</span>
+                            </label>
+                            <label class="sidebar__type-label" for="flying">
+                                <input type="checkbox" class="sidebar__type" id="flying" aria-labelledby="flying-label">
+                                <span id="flying-label">Flying</span>
+                            </label>
+                            <label class="sidebar__type-label" for="rock">
+                                <input type="checkbox" class="sidebar__type" id="rock" aria-labelledby="rock-label">
+                                <span id="rock-label">Rock</span>
+                            </label>
+                            <label class="sidebar__type-label" for="normal">
+                                <input type="checkbox" class="sidebar__type" id="normal" aria-labelledby="normal-label">
+                                <span id="normal-label">Normal</span>
+                            </label>
+                            <label class="sidebar__type-label" for="grass">
+                                <input type="checkbox" class="sidebar__type" id="grass" aria-labelledby="grass-label">
+                                <span id="grass-label">Grass</span>
+                            </label>
+                        </div>
+                        <div class="sidebar__type-group">
+                            <label class="sidebar__type-label" for="psychic">
+                                <input type="checkbox" class="sidebar__type" id="psychic"
+                                    aria-labelledby="psychic-label">
+                                <span id="psychic-label">Psychic</span>
+                            </label>
+                            <label class="sidebar__type-label" for="fighting">
+                                <input type="checkbox" class="sidebar__type" id="fighting"
+                                    aria-labelledby="fighting-label">
+                                <span id="fighting-label">Fighting</span>
+                            </label>
+                            <label class="sidebar__type-label" for="fairy">
+                                <input type="checkbox" class="sidebar__type" id="fairy" aria-labelledby="fairy-label">
+                                <span id="fairy-label">Fairy</span>
+                            </label>
+                            <label class="sidebar__type-label" for="sinister">
+                                <input type="checkbox" class="sidebar__type" id="sinister"
+                                    aria-labelledby="sinister-label">
+                                <span id="sinister-label">Sinister</span>
+                            </label>
+                            <label class="sidebar__type-label" for="dragon">
+                                <input type="checkbox" class="sidebar__type" id="dragon" aria-labelledby="dragon-label">
+                                <span id="dragon-label">Dragon</span>
+                            </label>
+                            <label class="sidebar__type-label" for="steel">
+                                <input type="checkbox" class="sidebar__type" id="steel" aria-labelledby="steel-label">
+                                <span id="steel-label">Steel</span>
+                            </label>
+                            <label class="sidebar__type-label" for="plant">
+                                <input type="checkbox" class="sidebar__type" id="plant" aria-labelledby="plant-label">
+                                <span id="plant-label">Plant</span>
+                            </label>
+                            <label class="sidebar__type-label" for="poison">
+                                <input type="checkbox" class="sidebar__type" id="poison" aria-labelledby="poison-label">
+                                <span id="poison-label">Poison</span>
+                            </label>
+                            <label class="sidebar__type-label" for="ghost">
+                                <input type="checkbox" class="sidebar__type" id="ghost" aria-labelledby="ghost-label">
+                                <span id="ghost-label">Ghost</span>
+                            </label>
+                            <label class="sidebar__type-label" for="unknown">
+                                <input type="checkbox" class="sidebar__type" id="unknown"
+                                    aria-labelledby="unknown-label">
+                                <span id="unknown-label">Unknown</span>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="sidebar__fieldset">
+                        <legend class="sidebar__legend">Color</legend>
+                        <div class="sidebar__color-group">
+                            <label class="sidebar__color-label" style="background-color: blue;"
+                                aria-label="Blue"></label>
+                            <label class="sidebar__color-label" style="background-color: green;"
+                                aria-label="Green"></label>
+                        </div>
+                        <div class="sidebar__color-group">
+                            <label class="sidebar__color-label" style="background-color: yellow;"
+                                aria-label="Yellow"></label>
+                            <label class="sidebar__color-label" style="background-color: pink;"
+                                aria-label="Pink"></label>
+                        </div>
+                        <div class="sidebar__color-group">
+                            <label class="sidebar__color-label" style="background-color: red;" aria-label="Red"></label>
+                            <label class="sidebar__color-label" style="background-color: white;"
+                                aria-label="White"></label>
+                        </div>
+                        <div class="sidebar__color-group">
+                            <label class="sidebar__color-label" style="background-color: brown;"
+                                aria-label="Brown"></label>
+                            <label class="sidebar__color-label" style="background-color: purple;"
+                                aria-label="Purple"></label>
+                        </div>
+                        <div class="sidebar__color-group">
+                            <label class="sidebar__color-label" style="background-color: orange;"
+                                aria-label="Orange"></label>
+                            <label class="sidebar__color-label" style="background-color: black;"
+                                aria-label="Black"></label>
+                        </div>
+
+                    </fieldset>
+                    <fieldset class="sidebar__fieldset">
+                        <legend class="sidebar__legend">Gender</legend>
+                        <div class="sidebar__radio-group">
+                            <label class="sidebar__radio-label" for="all">
+                                <input type="radio" name="gender" class="sidebar__radio" id="all"
+                                    aria-labelledby="all-label">
+                                <span id="all-label">All</span>
+                            </label>
+                            <label class="sidebar__radio-label" for="male">
+                                <input type="radio" name="gender" class="sidebar__radio" id="male"
+                                    aria-labelledby="male-label">
+                                <span id="male-label">Male</span>
+                            </label>
+                            <label class="sidebar__radio-label" for="female">
+                                <input type="radio" name="gender" class="sidebar__radio" id="female"
+                                    aria-labelledby="female-label">
+                                <span id="female-label">Female</span>
+                            </label>
+
+                            <label class="sidebar__radio-label" for="undefined">
+                                <input type="radio" name="gender" class="sidebar__radio" id="undefined"
+                                    aria-labelledby="undefined-label">
+                                <span id="undefined-label">Undefined</span>
+                            </label>
+                        </div>
+                    </fieldset>
+                </fieldset>
+            </form>
+
+
+        </aside>
+        <section class="content">
+            <div class="content__cards">
+                <pokemon-card name="Pokemon 1" image="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png"></pokemon-card>
+                <pokemon-card name="Pokemon 1" image="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png"></pokemon-card>
+                <pokemon-card name="Pokemon 1" image="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png"></pokemon-card>
+            </div>
+            <button class="content__button">Load more</button>
+        </section>
+    </main>
+    <!-- <script src="resources/js/scripts.js"></script> -->
+    <script src="components/pokemon-card/pokemon-card.js"></script>
+</body>
+
 </html>
