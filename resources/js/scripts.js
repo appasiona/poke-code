@@ -34,17 +34,46 @@ noResultsMessage.className = 'content__no-results';
 noResultsMessage.style.display = 'none';
 cardsContainer.parentElement.appendChild(noResultsMessage);
 
-// Variables to manage filtering and pagination
+/**
+ * Array to hold the filtered Pokémon data.
+ * @type {Array<Object>}
+ */
 let filteredData = [];
+
+/**
+ * Index to manage the current batch of displayed Pokémon.
+ * @type {number}
+ */
 let currentBatchIndex = 0;
+
+/**
+ * The number of Pokémon to display per batch.
+ * @type {number}
+ */
 const batchSize = 20;
 
-/** 
-* @property {Array<Object>} data - Array to hold Pokémon data.
-*/
+/**
+ * Array to hold the initial Pokémon data.
+ * @type {Array<Object>}
+ */
 let pokemonData = [];
+
+/**
+ * Map to hold Pokémon types.
+ * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
+ */
 let typeMap = new Map();
+
+/**
+ * Map to hold Pokémon colors.
+ * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
+ */
 let colorMap = new Map();
+
+/**
+ * Map to hold Pokémon genders.
+ * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
+ */
 let genderMap = new Map();
 
 
@@ -83,38 +112,6 @@ const loadNextBatch = () => {
     }
 };
 
-/**
- * Filters Pokémon data based on the search input and resets pagination.
- *
- * @function
- * @returns {void}
- */
-// const filterData = () => {
-//     const query = searchInput.value.trim().toLowerCase();
-
-//     if (query === '') {
-//         // If the search input is empty, use the full dataset
-//         filteredData = pokemonData;
-//     } else {
-//         // Filter data by name or ID
-//         filteredData = pokemonData.filter(pokemon =>
-//             pokemon.name.toLowerCase().includes(query) ||
-//             pokemon.id.toString().includes(query)
-//         );
-//     }
-
-//     // Reset batch index and render filtered data
-//     currentBatchIndex = 0;
-//     cardsContainer.innerHTML = ''; // Clear current cards for filtered results
-
-//     // Show "No Pokémons found" message if no results
-//     if (filteredData.length === 0) {
-//         noResultsMessage.style.display = 'block';
-//     } else {
-//         noResultsMessage.style.display = 'none';
-//         loadNextBatch();
-//     }
-// };
 
 /**
  * Gets the selected filters for types, colors, and genders.
@@ -147,111 +144,126 @@ const getSelectedFilters = () => {
     return selectedFilters;
 };
 
-const typeCache = new Map();
-
+/**
+ * Checks if a Pokémon matches any of the specified types.
+ * 
+ * @param {string} pokemonName - The name of the Pokémon.
+ * @param {Array<string>} types - The list of types to check against.
+ * @returns {Promise<boolean>} - True if the Pokémon matches any type, otherwise false.
+ */
 const checkMatchType = async (pokemonName, types) => {
-    if (types.length === 0) return true; 
+    if (types.length === 0) return true;
 
     for (const type of types) {
-        if (!typeCache.has(type)) {
-            const typeElm = typeMap.get(type);
+        let typeElm = typeMap.get(type);
 
-            if (typeElm.data.length === 0) {
-                const fetchPromise = apiService.fetchSpecificTypePokemons(typeElm.url)
-                    .then(pokemonList => {
-                        typeElm.data = pokemonList;
-                        return pokemonList;
-                    })
-                    .catch(error => {
-                        console.error(`Error fetching type data for ${type}:`, error);
-                        return []; 
-                    });
-
-                typeCache.set(type, fetchPromise);
-            }
+        if (typeElm && typeElm.data.length === 0) {
+            typeElm.data = apiService.fetchSpecificTypePokemons(typeElm.url)
+                .then(pokemonList => {
+                    typeElm.data = pokemonList;
+                    return pokemonList;
+                })
+                .catch(error => {
+                    console.error(`[checkMatchType] Error fetching type data for <${type}>:`, error);
+                    return [];
+                });
+            
+            typeMap.set(type, typeElm);
         }
 
-        const typeData = await typeCache.get(type);
-        if (typeData.includes(pokemonName)) return true; 
+        const typeData = await typeElm.data;
+        if (typeData.includes(pokemonName)) {
+            return true;
+        }
     }
 
-    return false; 
+    return false;
 };
 
-const colorCache = new Map();
-
+/**
+ * Checks if a Pokémon matches any of the specified colors.
+ * 
+ * @param {string} pokemonName - The name of the Pokémon.
+ * @param {Array<string>} colors - The list of colors to check against.
+ * @returns {Promise<boolean>} - True if the Pokémon matches any color, otherwise false.
+ */
 const checkMatchColor = async (pokemonName, colors) => {
-    if (colors.length === 0) return true; 
+    if (colors.length === 0) return true;
 
     for (const color of colors) {
-        if (!colorCache.has(color)) {
-            const colorElm = colorMap.get(color);
+        let colorElm = colorMap.get(color);
 
-            if (colorElm.data.length === 0) {
-                const fetchPromise = apiService.fetchSpecificColorPokemons(colorElm.url)
-                    .then(pokemonList => {
-                        colorElm.data = pokemonList;
-                        return pokemonList;
-                    })
-                    .catch(error => {
-                        console.error(`Error fetching type data for ${color}:`, error);
-                        return []; 
-                    });
+        if (colorElm && colorElm.data.length === 0) {
+            colorElm.data = apiService.fetchSpecificColorPokemons(colorElm.url)
+                .then(pokemonList => {
+                    colorElm.data = pokemonList;
+                    return pokemonList;
+                })
+                .catch(error => {
+                    console.error(`[checkMatchColor] Error fetching color data for <${color}>:`, error);
+                    return [];
+                });
 
-                    colorCache.set(color, fetchPromise);
-            }
+            colorMap.set(color, colorElm);
         }
 
-        const typeData = await colorCache.get(color);
-        if (typeData.includes(pokemonName)) return true; 
+        const colorData = await colorElm.data;
+        if (colorData.includes(pokemonName)) {
+            return true;
+        }
     }
 
-    return false; 
+    return false;
 };
 
-const genderCache = new Map();
-
+/**
+ * Checks if a Pokémon matches any of the specified genders.
+ * 
+ * @param {string} pokemonName - The name of the Pokémon.
+ * @param {Array<string>} genders - The list of genders to check against.
+ * @returns {Promise<boolean>} - True if the Pokémon matches any gender, otherwise false.
+ */
 const checkMatchGender = async (pokemonName, genders) => {
-    if (genders.includes('all')) return true; 
+    if (genders.includes('all')) return true;
 
     for (const gender of genders) {
-        if (!genderCache.has(gender)) {
-            const genderElm = genderMap.get(gender);
+        let genderElm = genderMap.get(gender);
 
-            if (genderElm.data.length === 0) {
-                const fetchPromise = apiService.fetchSpecificGenderPokemons(genderElm.url)
-                    .then(pokemonList => {
-                        genderElm.data = pokemonList;
-                        return pokemonList;
-                    })
-                    .catch(error => {
-                        console.error(`Error fetching type data for ${gender}:`, error);
-                        return []; 
-                    });
+        if (genderElm && genderElm.data.length === 0) {
+            genderElm.data = apiService.fetchSpecificGenderPokemons(genderElm.url)
+                .then(pokemonList => {
+                    genderElm.data = pokemonList; 
+                    return pokemonList;
+                })
+                .catch(error => {
+                    console.error(`[checkMatchGender] Error fetching gender data for <${gender}>:`, error);
+                    return [];
+                });
 
-                    genderCache.set(gender, fetchPromise);
-            }
+            genderMap.set(gender, genderElm);
         }
 
-        const genderData = await genderCache.get(gender);
-        if (genderData.includes(pokemonName)) return true; 
+        const genderData = await genderElm.data;
+        if (genderData.includes(pokemonName)) {
+            return true;
+        }
     }
 
-    return false; 
+    return false;
 };
 
+
+/**
+ * Filters the Pokémon data based on the search query and selected filters.
+ * 
+ * @returns {Promise<void>} - Resolves when the data has been filtered and displayed.
+ */
 const filterData = async () => {
     const query = searchInput.value.trim().toLowerCase();
     const { types, colors, genders } = getSelectedFilters();
 
-    await Promise.all(Array.from(typeCache.values()));
-
     const filteredDataPromises = pokemonData.map(async pokemon => {
-        const matchesQuery = query === '' || 
-            pokemon.name.toLowerCase().includes(query) ||
-            pokemon.id.toString().includes(query);
-
-        // Comprobar tipo, color y género de forma asincrónica
+        const matchesQuery = query === '' || pokemon.name.toLowerCase().includes(query) || pokemon.id.toString().includes(query);
         const matchesType = await checkMatchType(pokemon.name, types);
         const matchesColor = await checkMatchColor(pokemon.name, colors);
         const matchesGender = await checkMatchGender(pokemon.name, genders);
@@ -264,8 +276,8 @@ const filterData = async () => {
         filteredData = filteredDataResults.filter(pokemon => pokemon !== null);
 
         currentBatchIndex = 0;
-        cardsContainer.innerHTML = ''; 
-        
+        cardsContainer.innerHTML = '';
+
         if (filteredData.length === 0) {
             noResultsMessage.style.display = 'block';
         } else {
@@ -273,23 +285,20 @@ const filterData = async () => {
             loadNextBatch();
         }
     } catch (error) {
-        console.error('Error filtering data:', error);
-        noResultsMessage.style.display = 'block'; 
+        console.error('[filterData] Error filtering data:', error);
+        noResultsMessage.style.display = 'block';
     }
 };
 
 
-
 /**
- * Loads initial data and renders the first batch of cards.
- *
- * @async
- * @function
- * @returns {Promise<void>} - A promise that resolves when the initial data has been loaded and cards have been rendered.
+ * Loads the initial data for Pokémon, types, colors, and genders, then applies the initial filter.
+ * 
+ * @returns {Promise<void>} - Resolves when the data has been loaded and the initial filter has been applied.
  */
 const loadInitialData = async () => {
     pokemonData = await apiService.fetchPokemonData();
-    filterData(); // Apply initial filter based on the empty search query
+    filterData();
 
     typeMap = new Map(Object.entries(await apiService.fetchPokemonTypes()));
     colorMap = new Map(Object.entries(await apiService.fetchPokemonColors()));

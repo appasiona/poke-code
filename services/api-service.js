@@ -51,72 +51,124 @@ class APIService {
         }));
     }
 
+    /**
+     * Fetches the list of Pokémon types from the API.
+     * 
+     * @returns {Promise<Object>} - A promise that resolves to an object where the keys are Pokémon type names and the values are objects containing a URL and an empty data array.
+     * @throws {Error} - Throws an error if the fetch operation fails.
+     */
     async fetchPokemonTypes() {
         try {
             const response = await fetch(`${API_BASE_URL}/type`);
             const result = await response.json();
             return this.transformStructuredData(result.results);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('[fetchPokemonTypes] Error fetching data:', error);
+            throw error; 
         }
     }
 
+    /**
+     * Fetches Pokémon data for a specific type from the provided URL.
+     * 
+     * @param {string} url - The URL to fetch Pokémon data from.
+     * @returns {Promise<Array<string>>} - A promise that resolves to an array of Pokémon names for the specified type.
+     * @throws {Error} - Throws an error if the fetch operation fails.
+     */
     async fetchSpecificTypePokemons(url) {
         try {
             const response = await fetch(url);
             const result = await response.json();
             return result.pokemon.map(elm => elm.pokemon.name);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('[fetchSpecificTypePokemons] Error fetching data:', error);
+            throw error; 
         }
     }
 
+    /**
+     * Fetches the list of Pokémon colors from the API.
+     * 
+     * @returns {Promise<Object>} - A promise that resolves to an object where the keys are Pokémon color names and the values are objects containing a URL and an empty data array.
+     * @throws {Error} - Throws an error if the fetch operation fails.
+     */
     async fetchPokemonColors() {
         try {
             const response = await fetch(`${API_BASE_URL}/pokemon-color`);
             const result = await response.json();
             return this.transformStructuredData(result.results);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('[fetchPokemonColors] Error fetching data:', error);
+            throw error; 
         }
     }
 
+    /**
+     * Fetches Pokémon data for a specific color from the provided URL.
+     * 
+     * @param {string} url - The URL to fetch Pokémon data from.
+     * @returns {Promise<Array<string>>} - A promise that resolves to an array of Pokémon names for the specified color.
+     * @throws {Error} - Throws an error if the fetch operation fails.
+     */
     async fetchSpecificColorPokemons(url) {
         try {
             const response = await fetch(url);
             const result = await response.json();
             return result.pokemon_species.map(elm => elm.name);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('[fetchSpecificColorPokemons] Error fetching data:', error);
+            throw error; 
         }
     }
 
+    /**
+     * Fetches the list of Pokémon genders from the API.
+     * 
+     * @returns {Promise<Object>} - A promise that resolves to an object where the keys are Pokémon gender names and the values are objects containing a URL and an empty data array.
+     * @throws {Error} - Throws an error if the fetch operation fails.
+     */
     async fetchPokemonGenders() {
         try {
             const response = await fetch(`${API_BASE_URL}/gender`);
             const result = await response.json();
             return this.transformStructuredData(result.results);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('[fetchPokemonGenders] Error fetching data:', error);
+            throw error; 
         }
     }
 
+    /**
+     * Fetches Pokémon data for a specific gender from the provided URL.
+     * 
+     * @param {string} url - The URL to fetch Pokémon data from.
+     * @returns {Promise<Array<string>>} - A promise that resolves to an array of Pokémon names for the specified gender.
+     * @throws {Error} - Throws an error if the fetch operation fails.
+     */
     async fetchSpecificGenderPokemons(url) {
         try {
             const response = await fetch(url);
             const result = await response.json();
             return result.pokemon_species_details.map(elm => elm.pokemon_species.name);
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('[fetchSpecificGenderPokemons] Error fetching data:', error);
+            throw error; 
         }
     }
 
+    /**
+     * Transforms structured data from the API into a format suitable for internal use.
+     * 
+     * @param {Array<Object>} wholeData - The raw data from the API, containing objects with `name` and `url` properties.
+     * @returns {Object} - An object where the keys are Pokémon names and the values are objects containing a URL and an empty data array.
+     */
     transformStructuredData(wholeData) {
         return wholeData.reduce((acc, { name, url }) => {
-            acc[name] = {url: url, data: []};
+            acc[name] = { url: url, data: [] };
             return acc;
         }, {});
     }
+
 }
 
 const apiService = new APIService();
