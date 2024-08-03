@@ -53,9 +53,19 @@ class APIService {
 
     async fetchPokemonTypes() {
         try {
-            const response = await fetch(`${API_BASE_URL}/pokemon-color`);
+            const response = await fetch(`${API_BASE_URL}/type`);
             const result = await response.json();
             return this.transformStructuredData(result.results);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    async fetchSpecificTypePokemons(url) {
+        try {
+            const response = await fetch(url);
+            const result = await response.json();
+            return result.pokemon.map(elm => elm.pokemon.name);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -71,11 +81,31 @@ class APIService {
         }
     }
 
+    async fetchSpecificColorPokemons(url) {
+        try {
+            const response = await fetch(url);
+            const result = await response.json();
+            return result.pokemon_species.map(elm => elm.name);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
     async fetchPokemonGenders() {
         try {
             const response = await fetch(`${API_BASE_URL}/gender`);
             const result = await response.json();
             return this.transformStructuredData(result.results);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    async fetchSpecificGenderPokemons(url) {
+        try {
+            const response = await fetch(url);
+            const result = await response.json();
+            return result.pokemon.map(elm => elm.pokemon.name);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
