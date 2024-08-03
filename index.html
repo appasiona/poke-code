@@ -114,163 +114,143 @@
         <aside class="sidebar" id="sidebar">
             <!-- <button class="sidebar__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button> -->
             <form class="sidebar__form" aria-label="Filters">
-                <fieldset class="sidebar__">
+                <fieldset class="sidebar__filters-fieldset">
                     <legend class="sidebar__legend"><i class="bi bi-funnel"></i> Filters</legend>
                     <fieldset class="sidebar__fieldset">
                         <legend class="sidebar__legend">Type</legend>
                         <div class="sidebar__type-group">
-                            <label class="sidebar__type-label" for="bug">
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="bug" aria-labelledby="bug-label">
-                                <span id="bug-label">Bug</span>
-                            </label>
-                            <label class="sidebar__type-label" for="electric">
-                                <input type="checkbox" class="sidebar__type" id="electric"
-                                    aria-labelledby="electric-label">
-                                <span id="electric-label">Electric</span>
-                            </label>
-                            <label class="sidebar__type-label" for="water">
+                                <label class="sidebar__type-label" for="bug" id="bug-label">Bug</label>
+                            </div>
+                            <div class="sidebar__type-item">
+                                <input type="checkbox" class="sidebar__type" id="electric" aria-labelledby="electric-label">
+                                <label class="sidebar__type-label" for="electric" id="electric-label">Electric</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="water" aria-labelledby="water-label">
-                                <span id="water-label">Water</span>
-                            </label>
-                            <label class="sidebar__type-label" for="ground">
+                                <label class="sidebar__type-label" for="water" id="water-label">Water</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="ground" aria-labelledby="ground-label">
-                                <span id="ground-label">Ground</span>
-                            </label>
-                            <label class="sidebar__type-label" for="fire">
+                                <label class="sidebar__type-label" for="ground" id="ground-label">Ground</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="fire" aria-labelledby="fire-label">
-                                <span id="fire-label">Fire</span>
-                            </label>
-                            <label class="sidebar__type-label" for="ice">
+                                <label class="sidebar__type-label" for="fire" id="fire-label">Fire</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="ice" aria-labelledby="ice-label">
-                                <span id="ice-label">Ice</span>
-                            </label>
-                            <label class="sidebar__type-label" for="flying">
+                                <label class="sidebar__type-label" for="ice" id="ice-label">Ice</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="flying" aria-labelledby="flying-label">
-                                <span id="flying-label">Flying</span>
-                            </label>
-                            <label class="sidebar__type-label" for="rock">
+                                <label class="sidebar__type-label" for="flying" id="flying-label">Flying</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="rock" aria-labelledby="rock-label">
-                                <span id="rock-label">Rock</span>
-                            </label>
-                            <label class="sidebar__type-label" for="normal">
+                                <label class="sidebar__type-label" for="rock" id="rock-label">Rock</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="normal" aria-labelledby="normal-label">
-                                <span id="normal-label">Normal</span>
-                            </label>
-                            <label class="sidebar__type-label" for="grass">
+                                <label class="sidebar__type-label" for="normal" id="normal-label">Normal</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="grass" aria-labelledby="grass-label">
-                                <span id="grass-label">Grass</span>
-                            </label>
-                        </div>
-                        <div class="sidebar__type-group">
-                            <label class="sidebar__type-label" for="psychic">
-                                <input type="checkbox" class="sidebar__type" id="psychic"
-                                    aria-labelledby="psychic-label">
-                                <span id="psychic-label">Psychic</span>
-                            </label>
-                            <label class="sidebar__type-label" for="fighting">
-                                <input type="checkbox" class="sidebar__type" id="fighting"
-                                    aria-labelledby="fighting-label">
-                                <span id="fighting-label">Fighting</span>
-                            </label>
-                            <label class="sidebar__type-label" for="fairy">
+                                <label class="sidebar__type-label" for="grass" id="grass-label">Grass</label>
+                            </div>
+                            <div class="sidebar__type-item">
+                                <input type="checkbox" class="sidebar__type" id="psychic" aria-labelledby="psychic-label">
+                                <label class="sidebar__type-label" for="psychic" id="psychic-label">Psychic</label>
+                            </div>
+                            <div class="sidebar__type-item">
+                                <input type="checkbox" class="sidebar__type" id="fighting" aria-labelledby="fighting-label">
+                                <label class="sidebar__type-label" for="fighting" id="fighting-label">Fighting</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="fairy" aria-labelledby="fairy-label">
-                                <span id="fairy-label">Fairy</span>
-                            </label>
-                            <label class="sidebar__type-label" for="sinister">
-                                <input type="checkbox" class="sidebar__type" id="sinister"
-                                    aria-labelledby="sinister-label">
-                                <span id="sinister-label">Sinister</span>
-                            </label>
-                            <label class="sidebar__type-label" for="dragon">
+                                <label class="sidebar__type-label" for="fairy" id="fairy-label">Fairy</label>
+                            </div>
+                            <div class="sidebar__type-item">
+                                <input type="checkbox" class="sidebar__type" id="sinister" aria-labelledby="sinister-label">
+                                <label class="sidebar__type-label" for="sinister" id="sinister-label">Sinister</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="dragon" aria-labelledby="dragon-label">
-                                <span id="dragon-label">Dragon</span>
-                            </label>
-                            <label class="sidebar__type-label" for="steel">
+                                <label class="sidebar__type-label" for="dragon" id="dragon-label">Dragon</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="steel" aria-labelledby="steel-label">
-                                <span id="steel-label">Steel</span>
-                            </label>
-                            <label class="sidebar__type-label" for="plant">
+                                <label class="sidebar__type-label" for="steel" id="steel-label">Steel</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="plant" aria-labelledby="plant-label">
-                                <span id="plant-label">Plant</span>
-                            </label>
-                            <label class="sidebar__type-label" for="poison">
+                                <label class="sidebar__type-label" for="plant" id="plant-label">Plant</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="poison" aria-labelledby="poison-label">
-                                <span id="poison-label">Poison</span>
-                            </label>
-                            <label class="sidebar__type-label" for="ghost">
+                                <label class="sidebar__type-label" for="poison" id="poison-label">Poison</label>
+                            </div>
+                            <div class="sidebar__type-item">
                                 <input type="checkbox" class="sidebar__type" id="ghost" aria-labelledby="ghost-label">
-                                <span id="ghost-label">Ghost</span>
-                            </label>
-                            <label class="sidebar__type-label" for="unknown">
-                                <input type="checkbox" class="sidebar__type" id="unknown"
-                                    aria-labelledby="unknown-label">
-                                <span id="unknown-label">Unknown</span>
-                            </label>
+                                <label class="sidebar__type-label" for="ghost" id="ghost-label">Ghost</label>
+                            </div>
+                            <div class="sidebar__type-item">
+                                <input type="checkbox" class="sidebar__type" id="unknown" aria-labelledby="unknown-label">
+                                <label class="sidebar__type-label" for="unknown" id="unknown-label">Unknown</label>
+                            </div>
                         </div>
                     </fieldset>
                     <fieldset class="sidebar__fieldset">
                         <legend class="sidebar__legend">Color</legend>
                         <div class="sidebar__color-group">
-                            <input type="checkbox" id="color-blue" name="color" value="blue"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--blue" for="color-blue"
-                                aria-label="Blue"></label>
-
-                            <input type="checkbox" id="color-green" name="color" value="green"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--green" for="color-green"
-                                aria-label="Green"></label>
-                        </div>
-                        <div class="sidebar__color-group">
-                            <input type="checkbox" id="color-yellow" name="color" value="yellow"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--yellow" for="color-yellow"
-                                aria-label="Yellow"></label>
-
-                            <input type="checkbox" id="color-pink" name="color" value="pink"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--pink" for="color-pink"
-                                aria-label="Pink"></label>
-                        </div>
-                        <div class="sidebar__color-group">
-                            <input type="checkbox" id="color-red" name="color" value="red"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--red" for="color-red"
-                                aria-label="Red"></label>
-
-                            <input type="checkbox" id="color-white" name="color" value="white"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--white" for="color-white"
-                                aria-label="White"></label>
-                        </div>
-                        <div class="sidebar__color-group">
-                            <input type="checkbox" id="color-brown" name="color" value="brown"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--brown" for="color-brown"
-                                aria-label="Brown"></label>
-
-                            <input type="checkbox" id="color-purple" name="color" value="purple"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--purple" for="color-purple"
-                                aria-label="Purple"></label>
-                        </div>
-                        <div class="sidebar__color-group">
-                            <input type="checkbox" id="color-orange" name="color" value="orange"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--orange" for="color-orange"
-                                aria-label="Orange"></label>
-
-                            <input type="checkbox" id="color-black" name="color" value="black"
-                                class="sidebar__checkbox sidebar__checkbox--hidden">
-                            <label class="sidebar__color-label sidebar__color-label--black" for="color-black"
-                                aria-label="Black"></label>
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-blue" name="color" value="blue" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--blue" for="color-blue" aria-label="Blue"></label>
+                            </div>
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-yellow" name="color" value="yellow" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--yellow" for="color-yellow" aria-label="Yellow"></label>
+                            </div>
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-red" name="color" value="red" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--red" for="color-red" aria-label="Red"></label>
+                            </div>
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-brown" name="color" value="brown" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--brown" for="color-brown" aria-label="Brown"></label>
+                            </div>
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-orange" name="color" value="orange" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--orange" for="color-orange" aria-label="Orange"></label>
+                            </div>
+                            
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-green" name="color" value="green" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--green" for="color-green" aria-label="Green"></label>
+                            </div>
+                            
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-pink" name="color" value="pink" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--pink" for="color-pink" aria-label="Pink"></label>
+                            </div>
+                            
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-white" name="color" value="white" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--white" for="color-white" aria-label="White"></label>
+                            </div>
+                            
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-purple" name="color" value="purple" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--purple" for="color-purple" aria-label="Purple"></label>
+                            </div>
+                            
+                            <div class="sidebar__color-item">
+                                <input type="checkbox" id="color-black" name="color" value="black" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--black" for="color-black" aria-label="Black"></label>
+                            </div>
                         </div>
                     </fieldset>
-
-
-
-
-
                     <fieldset class="sidebar__fieldset">
                         <legend class="sidebar__legend">Gender</legend>
                         <div class="sidebar__radio-group">

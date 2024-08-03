@@ -115,6 +115,7 @@
         border-radius: 4px;
         padding: 10px;
         display: flex;
+        flex-direction: column; 
     }
 
     &__legend {
@@ -124,11 +125,18 @@
         padding: 0 10px;
     }
 
+    //Type filter
     &__type-group {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); 
         gap: 10px;
-        flex-direction: column;
+        margin-bottom: 10px;
+    }
+
+    &__type-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
     &__type {
@@ -137,12 +145,11 @@
     }
 
     &__type-label {
-        display: flex;
-        align-items: center;
-        gap: 5px;
         color: white;
+        cursor: pointer;
     }
 
+    //Color filter
     &__checkbox {
         position: absolute;
         width: 1px;
@@ -153,7 +160,7 @@
         clip: rect(0, 0, 0, 0);
         border: 0;
     }
-    
+
     &__checkbox--hidden {
         position: absolute;
         width: 1px;
@@ -167,8 +174,14 @@
 
     &__color-group {
         display: grid;
+        grid-template-columns: repeat(5, 1fr); 
         gap: 10px;
-        margin-right: 5px;
+    }
+
+    &__color-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
     &__color-label {
@@ -222,7 +235,7 @@
 
     &__checkbox:checked + .sidebar__color-label::after {
         content: '\2713'; 
-        color: #849ea3; 
+        color: #4f585a; 
         font-size: 16px; 
         position: absolute;
         top: 50%;
@@ -231,6 +244,8 @@
         display: block; 
     }
 
+
+    //Gender filter
     &__radio-group {
         display: flex;
         flex-direction: column;
@@ -249,6 +264,7 @@
         color: white;
     }
 }
+
 
 
 
