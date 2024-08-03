@@ -13,11 +13,6 @@ class APIService {
      */
     constructor() {
         /** 
-         * @property {Array<Object>} data - Array to hold Pokémon data.
-         */
-        this.data = [];
-        
-        /** 
          * @property {number} currentIndex - Index for tracking data retrieval.
          */
         this.currentIndex = 0;
@@ -35,7 +30,7 @@ class APIService {
         try {
             const response = await fetch(`${API_BASE_URL}/pokedex/national`);
             const result = await response.json();
-            this.data = this.transformData(result.pokemon_entries);
+            return this.transformData(result.pokemon_entries);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -54,18 +49,6 @@ class APIService {
             image: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(pokemonEntry.entry_number).padStart(3, '0')}.png`,
             url: pokemonEntry.pokemon_species.url
         }));
-    }
-
-    /**
-     * Retrieves the next batch of Pokémon data.
-     *
-     * @param {number} [batchSize=20] - The number of Pokémon to retrieve in the batch. Defaults to 20.
-     * @returns {Array<Object>} - The next batch of Pokémon data.
-     */
-    getNextBatch(batchSize = 20) {
-        const batch = this.data.slice(this.currentIndex, this.currentIndex + batchSize);
-        this.currentIndex += batchSize;
-        return batch;
     }
 }
 
