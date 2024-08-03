@@ -19,6 +19,23 @@ const cardsContainer = document.querySelector('.content__cards');
 const loadMoreButton = document.querySelector('.content__button');
 
 /**
+ * Search input field.
+ * @type {HTMLElement}
+ */
+const searchInput = document.querySelector('.header__input');
+
+// Variables to manage filtering and pagination
+let filteredData = [];
+let currentBatchIndex = 0;
+const batchSize = 20;
+
+/** 
+* @property {Array<Object>} data - Array to hold Pokémon data.
+*/
+let data = [];
+
+
+/**
  * Renders a list of Pokémon cards in the container.
  *
  * @param {Array<{ name: string, image: string }>} pokemonList - List of Pokémon objects, each with a name and an image URL.
@@ -27,10 +44,56 @@ const loadMoreButton = document.querySelector('.content__button');
 const renderCards = (pokemonList) => {
     pokemonList.forEach(pokemon => {
         const card = document.createElement('pokemon-card');
+        card.setAttribute('id', pokemon.id);
         card.setAttribute('name', pokemon.name);
         card.setAttribute('image', pokemon.image);
         cardsContainer.appendChild(card);
     });
+};
+
+/**
+ * Loads and renders the next batch of filtered Pokémon data.
+ *
+ * @function
+ * @returns {void}
+ */
+const loadNextBatch = () => {
+    const batch = filteredData.slice(currentBatchIndex, currentBatchIndex + batchSize);
+    currentBatchIndex += batchSize;
+    renderCards(batch);
+
+    // Hide load more button if no more data
+    if (currentBatchIndex >= filteredData.length) {
+        loadMoreButton.style.display = 'none';
+    } else {
+        loadMoreButton.style.display = 'block';
+    }
+};
+
+/**
+ * Filters Pokémon data based on the search input and resets pagination.
+ *
+ * @function
+ * @returns {void}
+ */
+const filterData = () => {
+    const query = searchInput.value.trim().toLowerCase();
+
+    if (query === '') {
+        // If the search input is empty, use the full dataset
+        filteredData = data;
+    } else {
+        // Filter data by name or ID
+        filteredData = data.filter(pokemon =>
+            pokemon.name.toLowerCase().includes(query) ||
+            pokemon.id.toString().includes(query)
+        );
+    }
+
+    // Reset batch index and render filtered data
+    currentBatchIndex = 0;
+    cardsContainer.innerHTML = ''; // Clear current cards for filtered results
+    loadNextBatch();
 };
 
 /**
@@ -41,28 +104,15 @@ const renderCards = (pokemonList) => {
  * @returns {Promise<void>} - A promise that resolves when the initial data has been loaded and cards have been rendered.
  */
 const loadInitialData = async () => {
-    await apiService.fetchData();
-    const initialBatch = apiService.getNextBatch();
-    renderCards(initialBatch);
-};
-
-/**
- * Loads the next batch of data and renders more cards.
- *
- * @function
- * @returns {void}
- */
-const loadMoreData = () => {
-    const nextBatch = apiService.getNextBatch();
-    if(nextBatch.length < 20) {
-        loadMoreButton.style.display = 'none';
-    }
-    renderCards(nextBatch);
+    data = await apiService.fetchData();
+    filterData(); // Apply initial filter based on the empty search query
 };
 
 // Set up the event to load more data when the button is clicked.
-loadMoreButton.addEventListener('click', loadMoreData);
+loadMoreButton.addEventListener('click', loadNextBatch);
+
+// Set up the event to filter data when the search input changes.
+searchInput.addEventListener('input', filterData);
 
 // Set up the event to load initial data when the document is loaded.
 document.addEventListener('DOMContentLoaded', loadInitialData);
-
