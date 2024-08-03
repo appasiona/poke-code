@@ -24,6 +24,16 @@ const loadMoreButton = document.querySelector('.content__button');
  */
 const searchInput = document.querySelector('.header__input');
 
+/** 
+ * DOM element for displaying a "No Pokémons found" message.
+ * @type {HTMLElement}
+ */
+const noResultsMessage = document.createElement('div');
+noResultsMessage.textContent = 'No Pokémons found...';
+noResultsMessage.className = 'content__no-results';
+noResultsMessage.style.display = 'none';
+cardsContainer.parentElement.appendChild(noResultsMessage);
+
 // Variables to manage filtering and pagination
 let filteredData = [];
 let currentBatchIndex = 0;
@@ -38,7 +48,7 @@ let data = [];
 /**
  * Renders a list of Pokémon cards in the container.
  *
- * @param {Array<{ name: string, image: string }>} pokemonList - List of Pokémon objects, each with a name and an image URL.
+ * @param {Array<{ name: string, image: string }>} pokemonList - List of Pokémon objects, each with an id, a name and an image URL.
  * @returns {void}
  */
 const renderCards = (pokemonList) => {
@@ -93,7 +103,14 @@ const filterData = () => {
     // Reset batch index and render filtered data
     currentBatchIndex = 0;
     cardsContainer.innerHTML = ''; // Clear current cards for filtered results
-    loadNextBatch();
+
+    // Show "No Pokémons found" message if no results
+    if (filteredData.length === 0) {
+        noResultsMessage.style.display = 'block';
+    } else {
+        noResultsMessage.style.display = 'none';
+        loadNextBatch();
+    }
 };
 
 /**
