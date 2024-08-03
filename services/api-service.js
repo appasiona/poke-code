@@ -105,7 +105,7 @@ class APIService {
         try {
             const response = await fetch(url);
             const result = await response.json();
-            return result.pokemon.map(elm => elm.pokemon.name);
+            return result.pokemon_species_details.map(elm => elm.pokemon_species.name);
         } catch (error) {
             console.error('Error fetching data:', error);
         }

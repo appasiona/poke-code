@@ -141,7 +141,7 @@ const getSelectedFilters = () => {
 
     // Get selected genders
     document.querySelectorAll(".sidebar__radio:checked").forEach((radio) => {
-        selectedFilters.genders.push(radio.id);
+        selectedFilters.genders.push(radio.value);
     });
 
     return selectedFilters;
@@ -183,27 +183,58 @@ const colorCache = new Map();
 const checkMatchColor = async (pokemonName, colors) => {
     if (colors.length === 0) return true; 
 
-    for (const type of colors) {
-        if (!colorCache.has(type)) {
-            const typeElm = typeMap.get(type);
+    for (const color of colors) {
+        if (!colorCache.has(color)) {
+            const colorElm = colorMap.get(color);
 
-            if (typeElm.data.length === 0) {
-                const fetchPromise = apiService.fetchSpecificColorPokemons(typeElm.url)
+            if (colorElm.data.length === 0) {
+                const fetchPromise = apiService.fetchSpecificColorPokemons(colorElm.url)
                     .then(pokemonList => {
-                        typeElm.data = pokemonList;
+                        colorElm.data = pokemonList;
                         return pokemonList;
                     })
                     .catch(error => {
-                        console.error(`Error fetching type data for ${type}:`, error);
+                        console.error(`Error fetching type data for ${color}:`, error);
                         return []; 
                     });
 
-                    colorCache.set(type, fetchPromise);
+                    colorCache.set(color, fetchPromise);
             }
         }
 
-        const typeData = await colorCache.get(type);
+        const typeData = await colorCache.get(color);
         if (typeData.includes(pokemonName)) return true; 
+    }
+
+    return false; 
+};
+
+const genderCache = new Map();
+
+const checkMatchGender = async (pokemonName, genders) => {
+    if (genders.includes('all')) return true; 
+
+    for (const gender of genders) {
+        if (!genderCache.has(gender)) {
+            const genderElm = genderMap.get(gender);
+
+            if (genderElm.data.length === 0) {
+                const fetchPromise = apiService.fetchSpecificGenderPokemons(genderElm.url)
+                    .then(pokemonList => {
+                        genderElm.data = pokemonList;
+                        return pokemonList;
+                    })
+                    .catch(error => {
+                        console.error(`Error fetching type data for ${gender}:`, error);
+                        return []; 
+                    });
+
+                    genderCache.set(gender, fetchPromise);
+            }
+        }
+
+        const genderData = await genderCache.get(gender);
+        if (genderData.includes(pokemonName)) return true; 
     }
 
     return false; 
@@ -223,7 +254,7 @@ const filterData = async () => {
         // Comprobar tipo, color y género de forma asincrónica
         const matchesType = await checkMatchType(pokemon.name, types);
         const matchesColor = await checkMatchColor(pokemon.name, colors);
-        const matchesGender = genders.includes('all') || genders.includes(pokemon.gender);
+        const matchesGender = await checkMatchGender(pokemon.name, genders);
 
         return matchesQuery && matchesType && matchesColor && matchesGender ? pokemon : null;
     });
