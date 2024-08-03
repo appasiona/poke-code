@@ -44,7 +44,7 @@ class PokemonCard extends HTMLElement {
 
         // Create and configure name element
         const name = document.createElement('p');
-        name.textContent = this.getAttribute('name') || 'Pokemon Name';
+        name.textContent = `#${this.getAttribute('id')} ${this.getAttribute('name')}`  || 'Pokemon Name';
 
         textContainer.appendChild(name);
         cardContainer.appendChild(img);
@@ -66,7 +66,7 @@ class PokemonCard extends HTMLElement {
      * @returns {Array<string>} - An array of attribute names to observe.
      */
     static get observedAttributes() {
-        return ['name', 'image'];
+        return ['id', 'name', 'image'];
     }
 
     /**
