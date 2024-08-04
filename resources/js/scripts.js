@@ -32,9 +32,23 @@ const loadMoreButton = document.querySelector('.content__button');
  */
 const searchInput = document.querySelector('.header__input');
 
-
+/**
+ * Search dropdown.
+ * @type {HTMLElement}
+ */
 const searchDropdown = document.querySelector('.header__dropdown');
 
+/**
+ * Button to show filters on mobile.
+ * @type {HTMLElement}
+ */
+const filterButton = document.querySelector('.main__filter-button');
+
+/**
+ * Button to show filters on mobile.
+ * @type {HTMLElement}
+ */
+const crossButton = document.querySelector('.sidebar__cross');
 
 /**
  * Button to reset search bar.
@@ -448,6 +462,7 @@ const resetGenderFilter = () => {
     if (allRadioButton) {
         allRadioButton.checked = true;
     }
+    
     filterData();
 };
 
@@ -460,6 +475,26 @@ const resetSearchBoxFilter = () => {
     searchInput.value = '';
     resetSearchBox.style.display = 'none';
     filterData();
+};
+
+/**
+ * Show filters box in mobile.
+ * 
+ * @returns {void} - This function does not return any value.
+ */
+const showFilters = () => {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.add('sidebar--visible');
+};
+
+/**
+ * Close sidebar in mobile.
+ * 
+ * @returns {void} - This function does not return any value.
+ */
+const closeFilters = () => {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.remove('sidebar--visible');
 };
 
 
@@ -475,6 +510,8 @@ resetColorButton.addEventListener('click', resetColorFilter);
 resetTypeButton.addEventListener('click', resetTypeFilter);
 resetGenderButton.addEventListener('click', resetGenderFilter);
 resetSearchBox.addEventListener('click', resetSearchBoxFilter);
+filterButton.addEventListener('click', showFilters);
+crossButton.addEventListener('click', closeFilters);
 
 // Set up the event to filter data when any checkbox or radio button changes.
 document.querySelector('.sidebar__filters-fieldset').addEventListener('change', filterData);
@@ -486,5 +523,9 @@ document.addEventListener('DOMContentLoaded', loadInitialData);
 document.addEventListener('click', (event) => {
     if (!event.target.closest('.header__search')) {
         searchDropdown.style.display = 'none';
+    }
+
+    if (!event.target.closest('.main__filter-button') && !event.target.closest('.sidebar')) {
+        closeFilters();
     }
 });

@@ -112,14 +112,15 @@
         </div>
     </header>
     <main class="main">
+        <div class="main__filter-button">
+            <i class="bi bi-funnel" style="color: black"></i>
+        </div>
         <aside class="sidebar" id="sidebar">
             <fieldset class="sidebar__filters-fieldset">
                 <legend class="sidebar__legend"><i class="bi bi-funnel"></i> Filters</legend>
-                <!-- <div> -->
-                <!-- <button class="sidebar__toggle" id="sidebarToggle"><i class="bi bi-funnel"></i></button> -->
-                <!-- <i class="bi bi-funnel" style="color: white"></i> -->
-                <!-- </div> -->
-
+                <div class="sidebar__cross">
+                    <i class="bi bi-x-lg"></i>
+                </div>
                 <fieldset class="sidebar__fieldset">
                     <legend class="sidebar__legend">Type</legend>
                     <div class="sidebar__type-group">
@@ -338,7 +339,9 @@
             <div class="content__cards">
                 <!-- Pokemon cards will be rendered here -->
             </div>
-            <button class="content__button">Load more</button>
+            <div class="content__container-button">
+                <button class="content__button">Load more</button>
+            </div>
         </section>
     </main>
     <script type="module" src="resources/js/scripts.js"></script>

@@ -188,11 +188,11 @@ class APIService {
         }
 
         if (data.name) {
-            output += `Name: ${data.name} \n`;
+            output += `Name: ${this.capitalize(data.name)} \n`;
         }
 
         if (data.color && data.color.name) {
-            output += `Color: ${data.color.name} \n`;
+            output += `Color: ${this.capitalize(data.color.name)} \n`;
         }
 
         if (data.capture_rate !== undefined && data.capture_rate !== null) {
@@ -200,11 +200,11 @@ class APIService {
         }
 
         if (data.habitat && data.habitat.name) {
-            output += `Habitat: ${data.habitat.name} \n`;
+            output += `Habitat: ${this.capitalize(data.habitat.name)} \n`;
         }
 
         if (data.egg_groups && data.egg_groups.length > 0) {
-            output += `Egg groups: ${data.egg_groups.map(gr => gr.name).join(', ')} \n`;
+            output += `Egg groups: ${data.egg_groups.map(gr => this.capitalize(gr.name)).join(',  ')} \n`;
         }
 
         if (data.is_legendary !== undefined) {
@@ -216,6 +216,16 @@ class APIService {
         }
 
         return output;
+    }
+
+    /**
+     * Capitalizes the first letter of a given text string.
+     *
+     * @param {string} text - The text to be capitalized.
+     * @returns {string} - The capitalized text.
+     */
+    capitalize(text) {
+        return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
 
