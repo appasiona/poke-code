@@ -32,6 +32,10 @@ const loadMoreButton = document.querySelector('.content__button');
  */
 const searchInput = document.querySelector('.header__input');
 
+
+const searchDropdown = document.querySelector('.header__dropdown');
+
+
 /**
  * Button to reset search bar.
  * @type {HTMLElement}
@@ -211,7 +215,7 @@ const checkMatchType = async (pokemonName, types) => {
                     console.error(`[checkMatchType] Error fetching type data for <${type}>:`, error);
                     return [];
                 });
-            
+
             typeMap.set(type, typeElm);
         }
 
@@ -276,7 +280,7 @@ const checkMatchGender = async (pokemonName, genders) => {
         if (genderElm && genderElm.data.length === 0) {
             genderElm.data = apiService.fetchSpecificGenderPokemons(genderElm.url)
                 .then(pokemonList => {
-                    genderElm.data = pokemonList; 
+                    genderElm.data = pokemonList;
                     return pokemonList;
                 })
                 .catch(error => {
@@ -295,6 +299,35 @@ const checkMatchGender = async (pokemonName, genders) => {
 
     return false;
 };
+
+const filterDataFromSearchBar = async () => {
+    await filterData();
+    const dropdownData = filteredData.slice(0, 5);
+    showSearchDropdown(dropdownData);
+}
+
+function showSearchDropdown(items) {
+    searchDropdown.innerHTML = '';
+
+    if (items.length === 0) {
+        searchDropdown.style.display = 'none';
+        return;
+    }
+
+    items.forEach(item => {
+        const div = document.createElement('div');
+        div.textContent = `#${item.id} ${item.name}`;
+        div.className = 'header__dropdown-item';
+        div.addEventListener('click', () => {
+            searchInput.value = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+            searchDropdown.style.display = 'none';
+            filterData();
+        });
+        searchDropdown.appendChild(div);
+    });
+
+    searchDropdown.style.display = 'block';
+}
 
 
 /**
@@ -415,6 +448,11 @@ const resetGenderFilter = () => {
     }
 };
 
+/**
+ * Resets the search box and refilter.
+ * 
+ * @returns {void} - This function does not return any value.
+ */
 const resetSearchBoxFilter = () => {
     searchInput.value = '';
     resetSearchBox.style.display = 'none';
@@ -426,7 +464,7 @@ const resetSearchBoxFilter = () => {
 loadMoreButton.addEventListener('click', loadNextBatch);
 
 // Set up the event to filter data when the search input changes.
-searchInput.addEventListener('input', filterData);
+searchInput.addEventListener('input', filterDataFromSearchBar);
 
 // Add event listeners for the buttons
 resetAllButton.addEventListener('click', resetAllFilters);
@@ -440,3 +478,10 @@ document.querySelector('.sidebar__filters-fieldset').addEventListener('change', 
 
 // Set up the event to load initial data when the document is loaded.
 document.addEventListener('DOMContentLoaded', loadInitialData);
+
+
+document.addEventListener('click', (event) => {
+    if (!event.target.closest('.header__search')) {
+        searchDropdown.style.display = 'none';
+    }
+});

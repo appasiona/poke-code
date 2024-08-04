@@ -4,22 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>▷ The best POKÉMON finder 🔍 | POKE:CODE</title>
+    <title>▷ POKE:CODE - The Ultimate Pokémon Finder 🥇</title>
 
     <!-- SEO -->
-    <meta name="description" content="✅">
-    <meta name="keywords"
-        content="cuanto falta, reloj, contador, cuenta regresiva, evento, reloj de cuenta regresiva" />
+    <meta name="description" content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool.">
+    <meta name="keywords" content="Pokémon, search, filters, Pokémon finder, POKE:CODE" />
     <link rel="canonical" href="https://appasiona.github.io/poke-code/" />
 
-    <meta property="og:title" content="▷ The best POKÉMON finder 🔍 | POKE:CODE" />
-    <meta property="og:description" content="✅" />
+    <meta property="og:title" content="▷ POKE:CODE - The Ultimate Pokémon Finder 🥇" />
+    <meta property="og:description" content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool." />
     <meta property="og:url" content="https://appasiona.github.io/poke-code/" />
     <meta property="og:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
-    <meta property="og:image:secure_url"
-        content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
-    <meta property="og:locale" content="es_ES" />
-    <meta property="og:type" content="article" />
+    <meta property="og:image:secure_url" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content="POKE:CODE" />
     <meta property="og:image:width" content="292" />
     <meta property="og:image:height" content="289" />
@@ -28,15 +26,13 @@
     <meta name="twitter:site" content="@appasiona" />
     <meta name="twitter:creator" content="@appasiona" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="▷ The best POKÉMON finder 🔍 | POKE:CODE" />
-    <meta name="twitter:description" content="✅" />
+    <meta name="twitter:title" content="▷ POKE:CODE - The Ultimate Pokémon Finder 🥇" />
+    <meta name="twitter:description" content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool." />
     <meta name="twitter:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
 
-    <link rel="alternate" hreflang="es" href="https://appasiona.github.io/poke-code/" />
+    <link rel="alternate" hreflang="en" href="https://appasiona.github.io/poke-code/" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta charset="UTF-8" />
-
     <link rel="icon" href="resources/images/favicon.ico">
 
     <script type='application/ld+json'>
@@ -48,7 +44,7 @@
             "@id": "https://appasiona.github.io/poke-code/#website",
             "url": "https://appasiona.github.io/poke-code/",
             "name": "POKE:CODE",
-            "inLanguage": "es",
+            "inLanguage": "en",
             "sameAs": [
             "https://www.facebook.com/appasiona",
             "https://twitter.com/appasiona/"
@@ -57,7 +53,7 @@
         {
             "@type": "ImageObject",
             "@id": "https://appasiona.github.io/poke-code//#primaryimage",
-            "inLanguage": "es",
+            "inLanguage": "en",
             "url": "https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png",
             "width": 1600,
             "height": 1600,
@@ -67,17 +63,17 @@
             "@type": "WebPage",
             "@id": "https://appasiona.github.io/poke-code//#webpage",
             "url": "https://appasiona.github.io/poke-code/",
-            "name": "▷ The best POKÉMON finder 🔍 | POKE:CODE",
+            "name": "▷ POKE:CODE - The Ultimate Pokémon Finder 🥇",
             "isPartOf": {
             "@id": "https://appasiona.github.io/poke-code/#website"
             },
-            "inLanguage": "es",
+            "inLanguage": "en",
             "primaryImageOfPage": {
             "@id": "https://appasiona.github.io/poke-code//#primaryimage"
             },
             "datePublished": "2024-08-03T09:00:05+00:00",
             "dateModified": "2024-08-03T18:16:59+00:00",
-            "description": "✅",
+            "description": "Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool.",
             "potentialAction": [
             {
                 "@type": "ReadAction",
@@ -108,6 +104,7 @@
             <i class="bi bi-search header__search-icon--left"></i>
             <input type="search" id="search" class="header__input" placeholder="Search">
             <i class="bi bi-x-lg header__search-icon--right"></i>
+            <div id="search-dropdown" class="header__dropdown"></div>
         </div>
     </header>
     <main class="main">
@@ -222,8 +219,8 @@
                                 <label class="sidebar__color-label sidebar__color-label--brown" for="color-brown" aria-label="Brown"></label>
                             </div>
                             <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-orange" name="color" value="orange" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--orange" for="color-orange" aria-label="Orange"></label>
+                                <input type="checkbox" id="color-gray" name="color" value="gray" class="sidebar__checkbox sidebar__checkbox--hidden">
+                                <label class="sidebar__color-label sidebar__color-label--gray" for="color-gray" aria-label="gray"></label>
                             </div>
                             
                             <div class="sidebar__color-item">

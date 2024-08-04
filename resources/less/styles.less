@@ -61,7 +61,7 @@
         width: 100%;
         padding: 10px 35px;
         border: 1px solid #ccc;
-        border-radius: 20px;
+        border-radius: 8px;
     }
 
     // search icon 
@@ -81,6 +81,30 @@
         right: @icon-spacing;
         cursor: pointer;
     }
+
+    &__dropdown {
+        display: none;
+        position: absolute;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        max-height: 200px;
+        overflow-y: auto;
+        width: 100%;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        z-index: 100; 
+        top:38px;
+    }
+    
+    &__dropdown-item {
+        padding: 8px;
+        cursor: pointer;
+        text-transform: capitalize;
+    }
+    
+    &__dropdown-item:hover {
+        background-color: #f0f0f0;
+    }
 }
 
 
@@ -97,7 +121,7 @@
     &__fieldset {
         margin-bottom: 20px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 8px;
         padding: 10px;
         display: flex;
         flex-direction: column; 
@@ -172,7 +196,7 @@
     &__color-label {
         width: 30px;
         height: 30px;
-        border-radius: 4px;
+        border-radius: 8px;
         border: 1px solid #ccc;
         cursor: pointer;
         position: relative;
@@ -210,8 +234,8 @@
         background-color: purple;
     }
 
-    &__color-label--orange {
-        background-color: orange;
+    &__color-label--gray {
+        background-color: gray;
     }
 
     &__color-label--black {
@@ -220,7 +244,7 @@
 
     &__checkbox:checked + .sidebar__color-label::after {
         content: '\2713'; 
-        color: #4f585a; 
+        color: #acb0b1; 
         font-size: 16px; 
         position: absolute;
         top: 50%;
@@ -293,7 +317,7 @@
         background-color: #007bff;
         color: #fff;
         cursor: pointer;
-        border-radius: 4px;
+        border-radius: 8px;
     }
 }
 
