@@ -7,15 +7,18 @@
     <title>▷ POKE:CODE - The Ultimate Pokémon Finder 🥇</title>
 
     <!-- SEO -->
-    <meta name="description" content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool.">
+    <meta name="description"
+        content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool.">
     <meta name="keywords" content="Pokémon, search, filters, Pokémon finder, POKE:CODE" />
     <link rel="canonical" href="https://appasiona.github.io/poke-code/" />
 
     <meta property="og:title" content="▷ POKE:CODE - The Ultimate Pokémon Finder 🥇" />
-    <meta property="og:description" content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool." />
+    <meta property="og:description"
+        content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool." />
     <meta property="og:url" content="https://appasiona.github.io/poke-code/" />
     <meta property="og:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
-    <meta property="og:image:secure_url" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
+    <meta property="og:image:secure_url"
+        content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="POKE:CODE" />
@@ -27,7 +30,8 @@
     <meta name="twitter:creator" content="@appasiona" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="▷ POKE:CODE - The Ultimate Pokémon Finder 🥇" />
-    <meta name="twitter:description" content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool." />
+    <meta name="twitter:description"
+        content="Find and explore Pokémon with ease using POKE:CODE 🥇 your ultimate Pokémon search tool." />
     <meta name="twitter:image" content="https://appasiona.github.io/poke-code/resources/images/poke-code-logo.png" />
 
     <link rel="alternate" hreflang="en" href="https://appasiona.github.io/poke-code/" />
@@ -109,178 +113,224 @@
     </header>
     <main class="main">
         <aside class="sidebar" id="sidebar">
-            <!-- <button class="sidebar__toggle" id="sidebarToggle"><i class="bi bi-list"></i></button> -->
-            <form class="sidebar__form" aria-label="Filters">
-                <fieldset class="sidebar__filters-fieldset">
-                    <legend class="sidebar__legend"><i class="bi bi-funnel"></i> Filters</legend>
-                    <fieldset class="sidebar__fieldset">
-                        <legend class="sidebar__legend">Type</legend>
-                        <div class="sidebar__type-group">
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="bug"  value="bug" aria-labelledby="bug-label">
-                                <label class="sidebar__type-label" for="bug" id="bug-label">Bug</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="electric" value="electric" aria-labelledby="electric-label">
-                                <label class="sidebar__type-label" for="electric" id="electric-label">Electric</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type"  id="water" value="water" aria-labelledby="water-label">
-                                <label class="sidebar__type-label" for="water" id="water-label">Water</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="ground" value="ground" aria-labelledby="ground-label">
-                                <label class="sidebar__type-label" for="ground" id="ground-label">Ground</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="fire" value="fire" aria-labelledby="fire-label">
-                                <label class="sidebar__type-label" for="fire" id="fire-label">Fire</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="ice" value="ice" aria-labelledby="ice-label">
-                                <label class="sidebar__type-label" for="ice" id="ice-label">Ice</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="flying" value="flying" aria-labelledby="flying-label">
-                                <label class="sidebar__type-label" for="flying" id="flying-label">Flying</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="rock" value="rock" aria-labelledby="rock-label">
-                                <label class="sidebar__type-label" for="rock" id="rock-label">Rock</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="normal" value="normal" aria-labelledby="normal-label">
-                                <label class="sidebar__type-label" for="normal" id="normal-label">Normal</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="grass" value="grass" aria-labelledby="grass-label">
-                                <label class="sidebar__type-label" for="grass" id="grass-label">Grass</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="psychic" value="psychic" aria-labelledby="psychic-label">
-                                <label class="sidebar__type-label" for="psychic" id="psychic-label">Psychic</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="fighting" value="fighting" aria-labelledby="fighting-label">
-                                <label class="sidebar__type-label" for="fighting" id="fighting-label">Fighting</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="fairy" value="fairy" aria-labelledby="fairy-label">
-                                <label class="sidebar__type-label" for="fairy" id="fairy-label">Fairy</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="dark" value="dark" aria-labelledby="dark-label">
-                                <label class="sidebar__type-label" for="dark" id="dark-label">Dark</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="dragon" value="dragon" aria-labelledby="dragon-label">
-                                <label class="sidebar__type-label" for="dragon" id="dragon-label">Dragon</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="steel" value="steel" aria-labelledby="steel-label">
-                                <label class="sidebar__type-label" for="steel" id="steel-label">Steel</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="stellar" value="stellar" aria-labelledby="stellar-label">
-                                <label class="sidebar__type-label" for="stellar" id="stellar-label">Stellar</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="poison" value="poison" aria-labelledby="poison-label">
-                                <label class="sidebar__type-label" for="poison" id="poison-label">Poison</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="ghost" value="ghost" aria-labelledby="ghost-label">
-                                <label class="sidebar__type-label" for="ghost" id="ghost-label">Ghost</label>
-                            </div>
-                            <div class="sidebar__type-item">
-                                <input type="checkbox" class="sidebar__type" id="unknown" value="unknown" aria-labelledby="unknown-label">
-                                <label class="sidebar__type-label" for="unknown" id="unknown-label">Unknown</label>
-                            </div>
-                        </div>
-                        <button class="filter-button" id="reset-type-button"><i class="bi bi-arrow-clockwise"></i> Reset filter</button>
-                    </fieldset>
-                    <fieldset class="sidebar__fieldset">
-                        <legend class="sidebar__legend">Color</legend>
-                        <div class="sidebar__color-group">
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-blue" name="color" value="blue" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--blue" for="color-blue" aria-label="Blue"></label>
-                            </div>
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-yellow" name="color" value="yellow" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--yellow" for="color-yellow" aria-label="Yellow"></label>
-                            </div>
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-red" name="color" value="red" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--red" for="color-red" aria-label="Red"></label>
-                            </div>
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-brown" name="color" value="brown" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--brown" for="color-brown" aria-label="Brown"></label>
-                            </div>
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-gray" name="color" value="gray" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--gray" for="color-gray" aria-label="gray"></label>
-                            </div>
-                            
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-green" name="color" value="green" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--green" for="color-green" aria-label="Green"></label>
-                            </div>
-                            
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-pink" name="color" value="pink" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--pink" for="color-pink" aria-label="Pink"></label>
-                            </div>
-                            
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-white" name="color" value="white" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--white" for="color-white" aria-label="White"></label>
-                            </div>
-                            
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-purple" name="color" value="purple" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--purple" for="color-purple" aria-label="Purple"></label>
-                            </div>
-                            
-                            <div class="sidebar__color-item">
-                                <input type="checkbox" id="color-black" name="color" value="black" class="sidebar__checkbox sidebar__checkbox--hidden">
-                                <label class="sidebar__color-label sidebar__color-label--black" for="color-black" aria-label="Black"></label>
-                            </div>
-                        </div>
-                        <button class="filter-button" id="reset-color-button"><i class="bi bi-arrow-clockwise"></i> Reset filter</button>
-                    </fieldset>
-                    <fieldset class="sidebar__fieldset">
-                        <legend class="sidebar__legend">Gender</legend>
-                        <div class="sidebar__radio-group">
-                            <label class="sidebar__radio-label" for="all">
-                                <input type="radio" name="gender" class="sidebar__radio" id="all" value="all"
-                                    aria-labelledby="all-label" checked>
-                                <span id="all-label">All</span>
-                            </label>
-                            <label class="sidebar__radio-label" for="male">
-                                <input type="radio" name="gender" class="sidebar__radio" id="male" value="male"
-                                    aria-labelledby="male-label">
-                                <span id="male-label">Male</span>
-                            </label>
-                            <label class="sidebar__radio-label" for="female">
-                                <input type="radio" name="gender" class="sidebar__radio" id="female" value="female"
-                                    aria-labelledby="female-label">
-                                <span id="female-label">Female</span>
-                            </label>
+            <fieldset class="sidebar__filters-fieldset">
+                <legend class="sidebar__legend"><i class="bi bi-funnel"></i> Filters</legend>
+                <!-- <div> -->
+                <!-- <button class="sidebar__toggle" id="sidebarToggle"><i class="bi bi-funnel"></i></button> -->
+                <!-- <i class="bi bi-funnel" style="color: white"></i> -->
+                <!-- </div> -->
 
-                            <label class="sidebar__radio-label" for="undefined">
-                                <input type="radio" name="gender" class="sidebar__radio" id="genderless" value="genderless"
-                                    aria-labelledby="undefined-label">
-                                <span id="undefined-label">Undefined</span>
-                            </label>
+                <fieldset class="sidebar__fieldset">
+                    <legend class="sidebar__legend">Type</legend>
+                    <div class="sidebar__type-group">
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="bug" value="bug"
+                                aria-labelledby="bug-label">
+                            <label class="sidebar__type-label" for="bug" id="bug-label">Bug</label>
                         </div>
-                        <button class="filter-button" id="reset-gender-button"><i class="bi bi-arrow-clockwise"></i> Reset filter</button>
-                    </fieldset>
-
-                    <button class="filter-button" id="reset-all-button"><i class="bi bi-arrow-clockwise"></i> Reset all filters</button>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="electric" value="electric"
+                                aria-labelledby="electric-label">
+                            <label class="sidebar__type-label" for="electric" id="electric-label">Electric</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="water" value="water"
+                                aria-labelledby="water-label">
+                            <label class="sidebar__type-label" for="water" id="water-label">Water</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="ground" value="ground"
+                                aria-labelledby="ground-label">
+                            <label class="sidebar__type-label" for="ground" id="ground-label">Ground</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="fire" value="fire"
+                                aria-labelledby="fire-label">
+                            <label class="sidebar__type-label" for="fire" id="fire-label">Fire</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="ice" value="ice"
+                                aria-labelledby="ice-label">
+                            <label class="sidebar__type-label" for="ice" id="ice-label">Ice</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="flying" value="flying"
+                                aria-labelledby="flying-label">
+                            <label class="sidebar__type-label" for="flying" id="flying-label">Flying</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="rock" value="rock"
+                                aria-labelledby="rock-label">
+                            <label class="sidebar__type-label" for="rock" id="rock-label">Rock</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="normal" value="normal"
+                                aria-labelledby="normal-label">
+                            <label class="sidebar__type-label" for="normal" id="normal-label">Normal</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="grass" value="grass"
+                                aria-labelledby="grass-label">
+                            <label class="sidebar__type-label" for="grass" id="grass-label">Grass</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="psychic" value="psychic"
+                                aria-labelledby="psychic-label">
+                            <label class="sidebar__type-label" for="psychic" id="psychic-label">Psychic</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="fighting" value="fighting"
+                                aria-labelledby="fighting-label">
+                            <label class="sidebar__type-label" for="fighting" id="fighting-label">Fighting</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="fairy" value="fairy"
+                                aria-labelledby="fairy-label">
+                            <label class="sidebar__type-label" for="fairy" id="fairy-label">Fairy</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="dark" value="dark"
+                                aria-labelledby="dark-label">
+                            <label class="sidebar__type-label" for="dark" id="dark-label">Dark</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="dragon" value="dragon"
+                                aria-labelledby="dragon-label">
+                            <label class="sidebar__type-label" for="dragon" id="dragon-label">Dragon</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="steel" value="steel"
+                                aria-labelledby="steel-label">
+                            <label class="sidebar__type-label" for="steel" id="steel-label">Steel</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="stellar" value="stellar"
+                                aria-labelledby="stellar-label">
+                            <label class="sidebar__type-label" for="stellar" id="stellar-label">Stellar</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="poison" value="poison"
+                                aria-labelledby="poison-label">
+                            <label class="sidebar__type-label" for="poison" id="poison-label">Poison</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="ghost" value="ghost"
+                                aria-labelledby="ghost-label">
+                            <label class="sidebar__type-label" for="ghost" id="ghost-label">Ghost</label>
+                        </div>
+                        <div class="sidebar__type-item">
+                            <input type="checkbox" class="sidebar__type" id="unknown" value="unknown"
+                                aria-labelledby="unknown-label">
+                            <label class="sidebar__type-label" for="unknown" id="unknown-label">Unknown</label>
+                        </div>
+                    </div>
+                    <button class="filter-button" id="reset-type-button"><i class="bi bi-arrow-clockwise"></i> Reset
+                        filter</button>
                 </fieldset>
-            </form>
+                <fieldset class="sidebar__fieldset">
+                    <legend class="sidebar__legend">Color</legend>
+                    <div class="sidebar__color-group">
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-blue" name="color" value="blue"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--blue" for="color-blue"
+                                aria-label="Blue"></label>
+                        </div>
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-yellow" name="color" value="yellow"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--yellow" for="color-yellow"
+                                aria-label="Yellow"></label>
+                        </div>
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-red" name="color" value="red"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--red" for="color-red"
+                                aria-label="Red"></label>
+                        </div>
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-brown" name="color" value="brown"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--brown" for="color-brown"
+                                aria-label="Brown"></label>
+                        </div>
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-gray" name="color" value="gray"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--gray" for="color-gray"
+                                aria-label="gray"></label>
+                        </div>
+
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-green" name="color" value="green"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--green" for="color-green"
+                                aria-label="Green"></label>
+                        </div>
+
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-pink" name="color" value="pink"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--pink" for="color-pink"
+                                aria-label="Pink"></label>
+                        </div>
+
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-white" name="color" value="white"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--white" for="color-white"
+                                aria-label="White"></label>
+                        </div>
+
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-purple" name="color" value="purple"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--purple" for="color-purple"
+                                aria-label="Purple"></label>
+                        </div>
+
+                        <div class="sidebar__color-item">
+                            <input type="checkbox" id="color-black" name="color" value="black"
+                                class="sidebar__checkbox sidebar__checkbox--hidden">
+                            <label class="sidebar__color-label sidebar__color-label--black" for="color-black"
+                                aria-label="Black"></label>
+                        </div>
+                    </div>
+                    <button class="filter-button" id="reset-color-button"><i class="bi bi-arrow-clockwise"></i>
+                        Reset filter</button>
+                </fieldset>
+                <fieldset class="sidebar__fieldset">
+                    <legend class="sidebar__legend">Gender</legend>
+                    <div class="sidebar__radio-group">
+                        <label class="sidebar__radio-label" for="all">
+                            <input type="radio" name="gender" class="sidebar__radio" id="all" value="all"
+                                aria-labelledby="all-label" checked>
+                            <span id="all-label">All</span>
+                        </label>
+                        <label class="sidebar__radio-label" for="male">
+                            <input type="radio" name="gender" class="sidebar__radio" id="male" value="male"
+                                aria-labelledby="male-label">
+                            <span id="male-label">Male</span>
+                        </label>
+                        <label class="sidebar__radio-label" for="female">
+                            <input type="radio" name="gender" class="sidebar__radio" id="female" value="female"
+                                aria-labelledby="female-label">
+                            <span id="female-label">Female</span>
+                        </label>
+
+                        <label class="sidebar__radio-label" for="undefined">
+                            <input type="radio" name="gender" class="sidebar__radio" id="genderless" value="genderless"
+                                aria-labelledby="undefined-label">
+                            <span id="undefined-label">Undefined</span>
+                        </label>
+                    </div>
+                    <button class="filter-button" id="reset-gender-button"><i class="bi bi-arrow-clockwise"></i>
+                        Reset filter</button>
+                </fieldset>
+
+                <button class="filter-button" id="reset-all-button"><i class="bi bi-arrow-clockwise"></i> Reset all
+                    filters</button>
+            </fieldset>
         </aside>
         <section class="content">
             <pokeball-loader></pokeball-loader>

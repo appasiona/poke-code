@@ -14,7 +14,6 @@ import apiService from '../../services/api-service.js';
  */
 class PokemonCard extends HTMLElement {
 
-
     /**
      * Creates an instance of PokemonCard.
      * @constructor
@@ -26,49 +25,64 @@ class PokemonCard extends HTMLElement {
     }
 
     /**
-   * Renders the Pokémon card content and styles.
-   *
-   * @function
-   * @returns {void} This method does not return any value.
-   */
+     * Renders the Pokémon card content and styles.
+     *
+     * @function
+     * @returns {void} This method does not return any value.
+     */
+
     render() {
         const shadow = this.shadowRoot;
 
-        // Clear any existing content
         shadow.innerHTML = '';
 
-        // Create and configure the card container
         const cardContainer = document.createElement('div');
         cardContainer.setAttribute('class', 'card');
 
-        // Create and configure the link element
         const linkElem = document.createElement('a');
-        linkElem.href = '#'; // Prevent default behavior, we'll handle click with JS
+        linkElem.href = '#'; 
         linkElem.setAttribute('class', 'card__link');
-        linkElem.setAttribute('data-url', this.getAttribute('url')); // Custom attribute for the URL
+        linkElem.setAttribute('data-url', this.getAttribute('url'));
 
-        // Create and configure image element
-        const img = document.createElement('img');
-        img.setAttribute('class', 'card__image');
-        img.alt = this.getAttribute('name') || 'Pokemon image';
-        img.src = this.getAttribute('image');
+        const flipContainer = document.createElement('div');
+        flipContainer.setAttribute('class', 'card__flip-container');
 
-        // Create and configure text container
+        const cardFront = document.createElement('div');
+        cardFront.setAttribute('class', 'card__front');
+
+        const imgFront = document.createElement('img');
+        imgFront.setAttribute('class', 'card__image');
+        imgFront.alt = this.getAttribute('name') || 'Pokemon image';
+        imgFront.src = this.getAttribute('image');
+
         const textContainer = document.createElement('div');
-        textContainer.setAttribute('class', 'card__text');
+        textContainer.setAttribute('class', 'card__name');
 
-        // Create and configure name element
         const name = document.createElement('p');
+        name.setAttribute('class', 'card__text');
         name.textContent = `#${this.getAttribute('id')} ${this.getAttribute('name')}` || 'Pokemon Name';
 
         textContainer.appendChild(name);
-        linkElem.appendChild(img);
-        linkElem.appendChild(textContainer);
+        cardFront.appendChild(imgFront);
+        cardFront.appendChild(textContainer);
 
-        // Append the link to the card container
+        const cardBack = document.createElement('div');
+        cardBack.setAttribute('class', 'card__back');
+
+        const imgBack = document.createElement('img');
+        imgBack.setAttribute('class', 'card__image');
+        imgBack.alt = 'Pokemon back image'; 
+        imgBack.src = 'resources/images/back-pokemon-card.png';
+
+        cardBack.appendChild(imgBack);
+
+        flipContainer.appendChild(cardFront);
+        flipContainer.appendChild(cardBack);
+
+        linkElem.appendChild(flipContainer);
+
         cardContainer.appendChild(linkElem);
 
-        // Create and append stylesheet link
         const linkStylesheet = document.createElement('link');
         linkStylesheet.setAttribute('rel', 'stylesheet');
         linkStylesheet.setAttribute('href', 'components/pokemon-card/pokemon-card.css');
@@ -76,7 +90,22 @@ class PokemonCard extends HTMLElement {
         shadow.appendChild(linkStylesheet);
         shadow.appendChild(cardContainer);
 
-        // Add event listener to open the alert
+        /* Rendererd HTML structure
+        <div class="card">
+            <a href="#" class="card__link" data-url="https://pokeapi.co/api/v2/pokemon-species/1/">
+                <div class="card__flip-container">
+                    <div class="card__front">
+                        <img class="card__image" alt="bulbasaur" src="https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png">
+                        <div class="card__name">
+                        <p class="card__text">#1 bulbasaur</p>
+                        </div>
+                    </div>
+                    <div class="card__back"><img class="card__image" alt="Back image" src="resources/images/back-pokemon-card.png"></div>
+                </div>
+            </a>
+        </div>
+        */
+
         linkElem.addEventListener('click', async (event) => {
             event.preventDefault();
             const url = linkElem.getAttribute('data-url');
@@ -119,4 +148,3 @@ class PokemonCard extends HTMLElement {
 
 // Define the custom element
 customElements.define('pokemon-card', PokemonCard);
-

@@ -423,6 +423,7 @@ const resetColorFilter = () => {
     document.querySelectorAll(".sidebar__checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
+    filterData();
 };
 
 /**
@@ -434,6 +435,7 @@ const resetTypeFilter = () => {
     document.querySelectorAll(".sidebar__type:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
+    filterData();
 };
 
 /**
@@ -442,10 +444,11 @@ const resetTypeFilter = () => {
  * @returns {void} - This function does not return any value.
  */
 const resetGenderFilter = () => {
-    const allRadioButton = document.querySelector(".sidebar__radio[value='all']");
+    const allRadioButton = document.querySelector(".sidebar__radio[id='all']");
     if (allRadioButton) {
         allRadioButton.checked = true;
     }
+    filterData();
 };
 
 /**

@@ -1,13 +1,38 @@
-// Pokemon card component styles
 .card {
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    text-align: center;
-    transition: transform 0.2s;
+    perspective: 1000px;
 
-    &:hover {
-        transform: scale(1.05);
+    &__flip-container {
+        position: relative;
+        width: 200px;
+        height: 277px;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+        cursor: pointer;
+
+
+    }
+
+    &__flip-container:hover {
+        transform: rotateY(180deg);
+    }
+
+    &__front,
+    &__back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    &__front {
+        background: #fff;
+    }
+
+    &__back {
+        background: #f2f2f2;
+        transform: rotateY(180deg);
     }
 
     &__image {
@@ -15,16 +40,17 @@
         height: auto;
     }
 
-    &__text {
+    &__name {
         padding: 16px;
-        // background-color: #f5f5f5;
+        text-align: center;
     }
 
-    &__text p {
+    &__text {
         margin: 0;
         font-size: 1.2rem;
         font-weight: bold;
         color: white;
         text-transform: capitalize;
+        color: black
     }
 }
