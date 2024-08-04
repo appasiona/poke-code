@@ -281,6 +281,7 @@ const filterData = async () => {
 
         if (filteredData.length === 0) {
             noResultsMessage.style.display = 'block';
+            loadMoreButton.style.display = 'none';
         } else {
             noResultsMessage.style.display = 'none';
             loadNextBatch();
