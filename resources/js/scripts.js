@@ -32,6 +32,30 @@ const loadMoreButton = document.querySelector('.content__button');
  */
 const searchInput = document.querySelector('.header__input');
 
+/**
+ * Button to reset all filters.
+ * @type {HTMLElement}
+ */
+const resetAllButton = document.getElementById('reset-all-button');
+
+/**
+ * Button to reset color filter.
+ * @type {HTMLElement}
+ */
+const resetColorButton = document.getElementById('reset-color-button');
+
+/**
+ * Button to reset type filter.
+ * @type {HTMLElement}
+ */
+const resetTypeButton = document.getElementById('reset-type-button');
+
+/**
+ * Button to reset gender filter.
+ * @type {HTMLElement}
+ */
+const resetGenderButton = document.getElementById('reset-gender-button');
+
 /** 
  * DOM element for displaying a "No Pokémons found" message.
  * @type {HTMLElement}
@@ -331,11 +355,64 @@ const loadInitialData = async () => {
     }
 };
 
+
+/**
+ * Resets all filters by calling the `resetTypeFilter`, `resetColorFilter`, and `resetGenderFilter` functions.
+ * 
+ * @returns {void} - This function does not return any value.
+ */
+const resetAllFilters = () => {
+    resetTypeFilter();
+    resetColorFilter();
+    resetGenderFilter();
+};
+
+/**
+ * Resets the color filter by unchecking all selected color checkboxes.
+ * 
+ * @returns {void} - This function does not return any value.
+ */
+const resetColorFilter = () => {
+    document.querySelectorAll(".sidebar__checkbox:checked").forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+};
+
+/**
+ * Resets the type filter by unchecking all selected type checkboxes.
+ * 
+ * @returns {void} - This function does not return any value.
+ */
+const resetTypeFilter = () => {
+    document.querySelectorAll(".sidebar__type:checked").forEach((checkbox) => {
+        checkbox.checked = false;
+    });
+};
+
+/**
+ * Resets the gender filter by selecting the "all" radio button and ensuring that no other gender radio buttons are selected.
+ * 
+ * @returns {void} - This function does not return any value.
+ */
+const resetGenderFilter = () => {
+    const allRadioButton = document.querySelector(".sidebar__radio[value='all']");
+    if (allRadioButton) {
+        allRadioButton.checked = true;
+    }
+};
+
+
 // Set up the event to load more data when the button is clicked.
 loadMoreButton.addEventListener('click', loadNextBatch);
 
 // Set up the event to filter data when the search input changes.
 searchInput.addEventListener('input', filterData);
+
+// Add event listeners for the buttons
+resetAllButton.addEventListener('click', resetAllFilters);
+resetColorButton.addEventListener('click', resetColorFilter);
+resetTypeButton.addEventListener('click', resetTypeFilter);
+resetGenderButton.addEventListener('click', resetGenderFilter);
 
 // Set up the event to filter data when any checkbox or radio button changes.
 document.querySelector('.sidebar__filters-fieldset').addEventListener('change', filterData);

@@ -1,13 +1,6 @@
-// @background-gradient: linear-gradient(#e66465, #9198e5);
-// @background-gradient: linear-gradient(to right, #434343 0%, black 100%);
-// @header-padding: 20px;
-// @search-input-border: 1px solid #ccc;
-// @search-input-padding: 10px;
-// @search-input-radius: 20px;
 @icon-color: #6c757d;
 @icon-size: 1.2em;
 @icon-spacing: 10px;
-// @search-icon-size: 2.5em;
 
 .page {
 
@@ -91,14 +84,6 @@
 }
 
 
-
-// Variables
-// @toggle-size: 2em;
-// @fieldset-padding: 10px;
-// @legend-font-weight: bold;
-
-
-// Estilos para el bloque `main`
 .main {
     display: flex;
 }
@@ -266,10 +251,7 @@
 }
 
 
-
-
-
-// Estilos para el bloque `content`
+// Content styles
 .content {
     flex: 3;
     padding: 0 20px;
@@ -296,7 +278,6 @@
         font-size: 1.5em;
     }
 
-    // Estilos para las tarjetas dentro del bloque `content`
     &__cards {
         display: flex;
         flex-wrap: wrap;
@@ -305,7 +286,6 @@
         justify-content: center;
     }
 
-    // Estilos para el botón de cargar más dentro del bloque `content`
     &__button {
         margin-top: 20px;
         padding: 10px 20px;
@@ -315,4 +295,16 @@
         cursor: pointer;
         border-radius: 4px;
     }
+}
+
+//Generic styles
+.filter-button {
+    background: white;
+    color: black;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
 }

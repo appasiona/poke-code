@@ -81,7 +81,6 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  /* Ensure items are stacked vertically */
 }
 .sidebar__legend {
   font-weight: bold;
@@ -92,7 +91,6 @@
 .sidebar__type-group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* Two columns */
   gap: 10px;
   margin-bottom: 10px;
 }
@@ -132,7 +130,6 @@
 .sidebar__color-group {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  /* Two columns */
   gap: 10px;
 }
 .sidebar__color-item {
@@ -242,4 +239,14 @@
   color: #fff;
   cursor: pointer;
   border-radius: 4px;
+}
+.filter-button {
+  background: white;
+  color: black;
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
 }
