@@ -422,10 +422,10 @@ const loadInitialData = async () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetAllFilters = () => {
-    resetTypeFilter();
-    resetColorFilter();
-    resetGenderFilter();
+const resetAllFilters = async () => {
+    await resetTypeFilter();
+    await resetColorFilter();
+    await resetGenderFilter();
 };
 
 /**
@@ -433,11 +433,11 @@ const resetAllFilters = () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetColorFilter = () => {
+const resetColorFilter = async () => {
     document.querySelectorAll(".sidebar__checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
-    filterData();
+    await filterData();
 };
 
 /**
@@ -445,11 +445,11 @@ const resetColorFilter = () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetTypeFilter = () => {
+const resetTypeFilter = async () => {
     document.querySelectorAll(".sidebar__type:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
-    filterData();
+    await filterData();
 };
 
 /**
@@ -457,13 +457,13 @@ const resetTypeFilter = () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetGenderFilter = () => {
+const resetGenderFilter = async () => {
     const allRadioButton = document.querySelector(".sidebar__radio[id='all']");
     if (allRadioButton) {
         allRadioButton.checked = true;
     }
     
-    filterData();
+    await filterData();
 };
 
 /**
