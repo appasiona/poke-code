@@ -314,12 +314,25 @@ const checkMatchGender = async (pokemonName, genders) => {
     return false;
 };
 
+/**
+ * Filters the Pokémon data based on the search query and displays a dropdown with the top 5 results.
+ * 
+ * @async
+ * @returns {Promise<void>} - Resolves when the data has been filtered and the dropdown has been updated.
+ */
+
 const filterDataFromSearchBar = async () => {
     await filterData();
     const dropdownData = filteredData.slice(0, 5);
     showSearchDropdown(dropdownData);
 }
 
+/**
+ * Displays a dropdown menu with the provided list of items.
+ * 
+ * @param {Array<Object>} items - An array of objects to display in the dropdown. Each object should have an `id` and `name` property.
+ * @returns {void}
+ */
 function showSearchDropdown(items) {
     searchDropdown.innerHTML = '';
 
@@ -519,7 +532,13 @@ document.querySelector('.sidebar__filters-fieldset').addEventListener('change', 
 // Set up the event to load initial data when the document is loaded.
 document.addEventListener('DOMContentLoaded', loadInitialData);
 
-
+/**
+ * Handles click events on the document to manage the visibility of the search dropdown and filters.
+ * 
+ * @listens document#click
+ * @param {MouseEvent} event - The click event object.
+ * @property {EventTarget} event.target - The target of the click event.
+ */
 document.addEventListener('click', (event) => {
     if (!event.target.closest('.header__search')) {
         searchDropdown.style.display = 'none';

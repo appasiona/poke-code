@@ -83,11 +83,23 @@ class PokeballLoader extends HTMLElement {
         shadow.appendChild(loaderContainer);
     }
 
+    /**
+     * Displays the Pokeball loader.
+     * 
+     * @function
+     * @returns {void} This method does not return any value.
+     */
     show() {
         this.activeRequests += 1;
         this.shadowRoot.querySelector('.loader').style.display = 'flex';
     }
 
+    /**
+     * Hides the Pokeball loader.
+     * 
+     * @function
+     * @returns {void} This method does not return any value.
+     */
     hide() {
         this.activeRequests -= 1;
         if (this.activeRequests <= 0) {
