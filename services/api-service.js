@@ -156,6 +156,13 @@ class APIService {
         }
     }
 
+    /**
+     * Fetches detailed information about a Pokémon from the given URL.
+     * 
+     * @param {string} url - The URL from which to fetch Pokémon data.
+     * @returns {Promise<string>} - A promise that resolves to a formatted string containing detailed Pokémon information.
+     * @throws {Error} - Throws an error if the fetch operation fails or if there is a problem processing the data.
+     */
     async fetchMoreInfoPokemons(url) {
         try {
             const response = await fetch(url);
@@ -167,19 +174,50 @@ class APIService {
         }
     }
 
+    /**
+     * Transforms Pokémon data into a human-readable format.
+     * 
+     * @param {Object} data - The raw Pokémon data object.
+     * @returns {string} - A formatted string containing detailed information about the Pokémon.
+     */
     structureMoreInfo(data) {
         let output = '';
-        output += `Number: #${data.id} \n`;
-        output += `Name: ${data.name} \n`;
-        output += `Color: ${data.color.name} \n`;
-        output += `Capture rate: ${data.capture_rate} \n`;
-        output += `Habitat: ${data.habitat.name} \n`;
-        output += `Egg groups: ${data.egg_groups.map(gr => gr.name).toString()} \n`;
-        output += `Is legendary: ${data.is_legendary ? 'Yes' : 'No'} \n`;
-        output += `Is mystical: ${data.is_mythical ? 'Yes' : 'No'} \n`;
+
+        if (data.id !== undefined && data.id !== null) {
+            output += `Number: #${data.id} \n`;
+        }
+
+        if (data.name) {
+            output += `Name: ${data.name} \n`;
+        }
+
+        if (data.color && data.color.name) {
+            output += `Color: ${data.color.name} \n`;
+        }
+
+        if (data.capture_rate !== undefined && data.capture_rate !== null) {
+            output += `Capture rate: ${data.capture_rate} \n`;
+        }
+
+        if (data.habitat && data.habitat.name) {
+            output += `Habitat: ${data.habitat.name} \n`;
+        }
+
+        if (data.egg_groups && data.egg_groups.length > 0) {
+            output += `Egg groups: ${data.egg_groups.map(gr => gr.name).join(', ')} \n`;
+        }
+
+        if (data.is_legendary !== undefined) {
+            output += `Is legendary: ${data.is_legendary ? 'Yes' : 'No'} \n`;
+        }
+
+        if (data.is_mythical !== undefined) {
+            output += `Is mystical: ${data.is_mythical ? 'Yes' : 'No'} \n`;
+        }
 
         return output;
     }
+
 
     /**
      * Transforms structured data from the API into a format suitable for internal use.
