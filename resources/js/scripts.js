@@ -6,6 +6,14 @@
 
 import apiService from '../../services/api-service.js';
 
+/**
+ * @module
+ * @description
+ * This module imports the custom element for displaying a Pokéball loader.
+ */
+
+import '../../components/pokeball-loader/pokeball-loader.js';
+
 /** 
  * DOM element that contains the Pokémon cards.
  * @type {HTMLElement}
@@ -76,6 +84,8 @@ let colorMap = new Map();
  */
 let genderMap = new Map();
 
+const loader = document.querySelector('pokeball-loader');
+
 
 /**
  * Renders a list of Pokémon cards in the container.
@@ -101,6 +111,7 @@ const renderCards = (pokemonList) => {
  * @returns {void}
  */
 const loadNextBatch = () => {
+    loader.show();
     const batch = filteredData.slice(currentBatchIndex, currentBatchIndex + batchSize);
     currentBatchIndex += batchSize;
     renderCards(batch);
@@ -111,6 +122,8 @@ const loadNextBatch = () => {
     } else {
         loadMoreButton.style.display = 'block';
     }
+
+    loader.hide();
 };
 
 
@@ -260,6 +273,7 @@ const checkMatchGender = async (pokemonName, genders) => {
  * @returns {Promise<void>} - Resolves when the data has been filtered and displayed.
  */
 const filterData = async () => {
+    loader.show();
     const query = searchInput.value.trim().toLowerCase();
     const { types, colors, genders } = getSelectedFilters();
 
@@ -289,6 +303,8 @@ const filterData = async () => {
     } catch (error) {
         console.error('[filterData] Error filtering data:', error);
         noResultsMessage.style.display = 'block';
+    } finally {
+        loader.hide();
     }
 };
 
@@ -299,12 +315,20 @@ const filterData = async () => {
  * @returns {Promise<void>} - Resolves when the data has been loaded and the initial filter has been applied.
  */
 const loadInitialData = async () => {
-    pokemonData = await apiService.fetchPokemonData();
-    filterData();
+    loader.show();
 
-    typeMap = new Map(Object.entries(await apiService.fetchPokemonTypes()));
-    colorMap = new Map(Object.entries(await apiService.fetchPokemonColors()));
-    genderMap = new Map(Object.entries(await apiService.fetchPokemonGenders()));
+    try {
+        pokemonData = await apiService.fetchPokemonData();
+        filterData();
+
+        typeMap = new Map(Object.entries(await apiService.fetchPokemonTypes()));
+        colorMap = new Map(Object.entries(await apiService.fetchPokemonColors()));
+        genderMap = new Map(Object.entries(await apiService.fetchPokemonGenders()));
+    } catch (error) {
+        console.error('Error loading initial data:', error);
+    } finally {
+        loader.hide();
+    }
 };
 
 // Set up the event to load more data when the button is clicked.
