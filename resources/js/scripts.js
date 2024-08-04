@@ -33,6 +33,12 @@ const loadMoreButton = document.querySelector('.content__button');
 const searchInput = document.querySelector('.header__input');
 
 /**
+ * Button to reset search bar.
+ * @type {HTMLElement}
+ */
+const resetSearchBox = document.querySelector('.header__search-icon--right');
+
+/**
  * Button to reset all filters.
  * @type {HTMLElement}
  */
@@ -298,7 +304,15 @@ const checkMatchGender = async (pokemonName, genders) => {
  */
 const filterData = async () => {
     loader.show();
+
     const query = searchInput.value.trim().toLowerCase();
+
+    if (query !== '') {
+        resetSearchBox.style.display = 'block';
+    } else {
+        resetSearchBox.style.display = 'none';
+    }
+
     const { types, colors, genders } = getSelectedFilters();
 
     const filteredDataPromises = pokemonData.map(async pokemon => {
@@ -401,6 +415,12 @@ const resetGenderFilter = () => {
     }
 };
 
+const resetSearchBoxFilter = () => {
+    searchInput.value = '';
+    resetSearchBox.style.display = 'none';
+    filterData();
+};
+
 
 // Set up the event to load more data when the button is clicked.
 loadMoreButton.addEventListener('click', loadNextBatch);
@@ -413,6 +433,7 @@ resetAllButton.addEventListener('click', resetAllFilters);
 resetColorButton.addEventListener('click', resetColorFilter);
 resetTypeButton.addEventListener('click', resetTypeFilter);
 resetGenderButton.addEventListener('click', resetGenderFilter);
+resetSearchBox.addEventListener('click', resetSearchBoxFilter);
 
 // Set up the event to filter data when any checkbox or radio button changes.
 document.querySelector('.sidebar__filters-fieldset').addEventListener('change', filterData);

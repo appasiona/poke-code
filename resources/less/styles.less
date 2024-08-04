@@ -1,5 +1,5 @@
 @icon-color: #6c757d;
-@icon-size: 1.2em;
+@icon-size: 1em;
 @icon-spacing: 10px;
 
 .page {
@@ -79,7 +79,7 @@
         color: @icon-color;
         font-size: @icon-size;
         right: @icon-spacing;
-        pointer-events: none;
+        cursor: pointer;
     }
 }
 
@@ -307,4 +307,11 @@
     cursor: pointer;
     border-radius: 4px;
     width: 100%;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  display: none;
 }
