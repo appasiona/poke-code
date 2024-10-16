@@ -77,7 +77,7 @@ class PokeballLoader extends HTMLElement {
         // Create and append stylesheet link
         const linkStylesheet = document.createElement('link');
         linkStylesheet.setAttribute('rel', 'stylesheet');
-        linkStylesheet.setAttribute('href', 'components/pokeball-loader/pokeball-loader.css');
+        linkStylesheet.setAttribute('href', 'src/components/pokeball-loader/pokeball-loader.css');
 
         shadow.appendChild(linkStylesheet);
         shadow.appendChild(loaderContainer);

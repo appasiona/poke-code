@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://pokeapi.co/api/v2';
+import { API_BASE_URL, API_ASSETS_URL } from '../utils/constants.js';
 
 /**
  * Class for interacting with the Pokémon API.
@@ -46,7 +46,7 @@ class APIService {
         return wholeData.map(pokemonEntry => ({
             id: pokemonEntry.entry_number,
             name: pokemonEntry.pokemon_species.name,
-            image: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/${String(pokemonEntry.entry_number).padStart(3, '0')}.png`,
+            image: `${API_ASSETS_URL}/cms2/img/pokedex/detail/${String(pokemonEntry.entry_number).padStart(3, '0')}.png`,
             url: pokemonEntry.pokemon_species.url
         }));
     }

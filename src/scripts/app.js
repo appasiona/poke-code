@@ -4,7 +4,7 @@
  * Module for handling the display of Pokémon cards and loading initial and additional data.
  */
 
-import apiService from '../../services/api-service.js';
+import apiService from '../services/api-service.js';
 
 /**
  * @module
@@ -12,7 +12,7 @@ import apiService from '../../services/api-service.js';
  * This module imports the custom element for displaying a Pokéball loader.
  */
 
-import '../../components/pokeball-loader/pokeball-loader.js';
+import '../components/pokeball-loader/pokeball-loader.js';
 
 /** 
  * DOM element that contains the Pokémon cards.
@@ -475,7 +475,7 @@ const resetGenderFilter = async () => {
     if (allRadioButton) {
         allRadioButton.checked = true;
     }
-    
+
     await filterData();
 };
 

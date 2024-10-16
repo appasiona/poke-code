@@ -72,7 +72,7 @@ class PokemonCard extends HTMLElement {
         const imgBack = document.createElement('img');
         imgBack.setAttribute('class', 'card__image');
         imgBack.alt = 'Pokemon back image'; 
-        imgBack.src = 'resources/images/back-pokemon-card.png';
+        imgBack.src = 'src/images/back-pokemon-card.png';
 
         cardBack.appendChild(imgBack);
 
@@ -100,7 +100,7 @@ class PokemonCard extends HTMLElement {
                         <p class="card__text">#1 bulbasaur</p>
                         </div>
                     </div>
-                    <div class="card__back"><img class="card__image" alt="Back image" src="resources/images/back-pokemon-card.png"></div>
+                    <div class="card__back"><img class="card__image" alt="Back image" src="src/images/back-pokemon-card.png"></div>
                 </div>
             </a>
         </div>
