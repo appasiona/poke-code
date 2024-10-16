@@ -30,13 +30,13 @@ const loadMoreButton = document.querySelector('.content__button');
  * Search input field.
  * @type {HTMLElement}
  */
-const searchInput = document.querySelector('.header__input');
+const searchInput = document.querySelector('.header__search-input');
 
 /**
  * Search dropdown.
  * @type {HTMLElement}
  */
-const searchDropdown = document.querySelector('.header__dropdown');
+const searchDropdown = document.querySelector('.header__search-dropdown');
 
 /**
  * Button to show filters on mobile.
@@ -189,17 +189,17 @@ const getSelectedFilters = () => {
     };
 
     // Get selected types
-    document.querySelectorAll(".sidebar__type:checked").forEach((checkbox) => {
+    document.querySelectorAll(".sidebar__type-checkbox:checked").forEach((checkbox) => {
         selectedFilters.types.push(checkbox.value);
     });
 
     // Get selected colors
-    document.querySelectorAll(".sidebar__checkbox:checked").forEach((checkbox) => {
+    document.querySelectorAll(".sidebar__color-checkbox:checked").forEach((checkbox) => {
         selectedFilters.colors.push(checkbox.value);
     });
 
     // Get selected genders
-    document.querySelectorAll(".sidebar__radio:checked").forEach((radio) => {
+    document.querySelectorAll(".sidebar__gender-radio:checked").forEach((radio) => {
         selectedFilters.genders.push(radio.value);
     });
 
@@ -344,7 +344,7 @@ function showSearchDropdown(items) {
     items.forEach(item => {
         const div = document.createElement('div');
         div.textContent = `#${item.id} ${item.name}`;
-        div.className = 'header__dropdown-item';
+        div.className = 'header__search-dropdown-item';
         div.addEventListener('click', () => {
             searchInput.value = item.name.charAt(0).toUpperCase() + item.name.slice(1);
             searchDropdown.style.display = 'none';
@@ -447,7 +447,7 @@ const resetAllFilters = async () => {
  * @returns {void} - This function does not return any value.
  */
 const resetColorFilter = async () => {
-    document.querySelectorAll(".sidebar__checkbox:checked").forEach((checkbox) => {
+    document.querySelectorAll(".sidebar__color-checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
     await filterData();
@@ -459,7 +459,7 @@ const resetColorFilter = async () => {
  * @returns {void} - This function does not return any value.
  */
 const resetTypeFilter = async () => {
-    document.querySelectorAll(".sidebar__type:checked").forEach((checkbox) => {
+    document.querySelectorAll(".sidebar__type-checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
     await filterData();
@@ -471,7 +471,7 @@ const resetTypeFilter = async () => {
  * @returns {void} - This function does not return any value.
  */
 const resetGenderFilter = async () => {
-    const allRadioButton = document.querySelector(".sidebar__radio[id='all']");
+    const allRadioButton = document.querySelector(".sidebar__gender-radio[id='all']");
     if (allRadioButton) {
         allRadioButton.checked = true;
     }
@@ -527,7 +527,7 @@ filterButton.addEventListener('click', showFilters);
 crossButton.addEventListener('click', closeFilters);
 
 // Set up the event to filter data when any checkbox or radio button changes.
-document.querySelector('.sidebar__filters-fieldset').addEventListener('change', filterData);
+document.querySelector('.sidebar__main-fieldset').addEventListener('change', filterData);
 
 // Set up the event to load initial data when the document is loaded.
 document.addEventListener('DOMContentLoaded', loadInitialData);
