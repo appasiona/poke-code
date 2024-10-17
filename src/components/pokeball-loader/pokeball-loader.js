@@ -4,6 +4,8 @@
  * Module for displaying a Pokeball loading animation.
  */
 
+import { createElementWithClass } from '../../utils/helper.js';
+
 /**
  * Custom element representing a Pokeball loader.
  *
@@ -35,12 +37,6 @@ class PokeballLoader extends HTMLElement {
         // Clear any existing content
         shadow.innerHTML = '';
 
-        const createElementWithClass = (tag, ...classes) => {
-            const element = document.createElement(tag);
-            element.classList.add(...classes);
-            return element;
-        };
-
         // Create loader structure
         const loaderContainer = createElementWithClass('div', 'loader', 'loader--hide');
         const loaderItem = createElementWithClass('div', 'loader__item');
@@ -59,8 +55,8 @@ class PokeballLoader extends HTMLElement {
 
         // Create and append stylesheet link
         const linkStylesheet = document.createElement('link');
-        linkStylesheet.setAttribute('rel', 'stylesheet');
-        linkStylesheet.setAttribute('href', 'src/components/pokeball-loader/pokeball-loader.css');
+        linkStylesheet.rel = 'stylesheet'; 
+        linkStylesheet.href = 'src/components/pokeball-loader/pokeball-loader.css'; 
 
         shadow.appendChild(linkStylesheet);
         shadow.appendChild(loaderContainer);

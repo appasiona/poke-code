@@ -5,6 +5,7 @@
  */
 
 import apiService from '../../services/api-service.js';
+import { createElementWithClass } from '../../utils/helper.js';
 
 /**
  * Custom element representing a Pokémon card.
@@ -32,63 +33,51 @@ class PokemonCard extends HTMLElement {
      */
 
     render() {
+
         const shadow = this.shadowRoot;
 
         shadow.innerHTML = '';
 
         const cardContainer = document.createElement('div');
-        cardContainer.setAttribute('class', 'card');
+        cardContainer.classList.add('card');
 
-        const linkElem = document.createElement('a');
-        linkElem.href = '#'; 
-        linkElem.setAttribute('class', 'card__link');
+        const linkElem = createElementWithClass('a', 'card__link');
+        linkElem.href = '#';
         linkElem.setAttribute('data-url', this.getAttribute('url'));
 
-        const flipContainer = document.createElement('div');
-        flipContainer.setAttribute('class', 'card__flip-container');
+        const flipContainer = createElementWithClass('div', 'card__flip-container');
 
-        const cardFront = document.createElement('div');
-        cardFront.setAttribute('class', 'card__front');
+        const cardFront = createElementWithClass('div', 'card__front');
 
-        const imgFront = document.createElement('img');
-        imgFront.setAttribute('class', 'card__image');
+        const imgFront = createElementWithClass('img', 'card__image');
         imgFront.alt = this.getAttribute('name') || 'Pokemon image';
         imgFront.src = this.getAttribute('image');
 
-        const textContainer = document.createElement('div');
-        textContainer.setAttribute('class', 'card__name');
+        const textContainer = createElementWithClass('div', 'card__name');
 
-        const name = document.createElement('p');
-        name.setAttribute('class', 'card__text');
+        const name = createElementWithClass('p', 'card__text');
         name.textContent = `#${this.getAttribute('id')} ${this.getAttribute('name')}` || 'Pokemon Name';
 
         textContainer.appendChild(name);
-        cardFront.appendChild(imgFront);
-        cardFront.appendChild(textContainer);
+        cardFront.append(imgFront, textContainer);
 
-        const cardBack = document.createElement('div');
-        cardBack.setAttribute('class', 'card__back');
+        const cardBack = createElementWithClass('div', 'card__back');
 
-        const imgBack = document.createElement('img');
-        imgBack.setAttribute('class', 'card__image');
-        imgBack.alt = 'Pokemon back image'; 
+        const imgBack = createElementWithClass('img', 'card__image');
+        imgBack.alt = 'Pokemon back image';
         imgBack.src = 'src/images/back-pokemon-card.png';
 
         cardBack.appendChild(imgBack);
 
-        flipContainer.appendChild(cardFront);
-        flipContainer.appendChild(cardBack);
-
+        flipContainer.append(cardFront, cardBack);
         linkElem.appendChild(flipContainer);
-
         cardContainer.appendChild(linkElem);
 
         const linkStylesheet = document.createElement('link');
-        linkStylesheet.setAttribute('rel', 'stylesheet');
-        linkStylesheet.setAttribute('href', 'src/components/pokemon-card/pokemon-card.css');
+        linkStylesheet.rel = 'stylesheet'; 
+        linkStylesheet.href = 'src/components/pokemon-card/pokemon-card.css'; 
 
-        shadow.appendChild(linkStylesheet);
-        shadow.appendChild(cardContainer);
+        shadow.append(linkStylesheet, cardContainer);
 
         /* Rendererd HTML structure
         <div class="card">
