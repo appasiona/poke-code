@@ -48,7 +48,7 @@ const filterButton = document.querySelector('.main__filter-button');
  * Button to show filters on mobile.
  * @type {HTMLElement}
  */
-const crossButton = document.querySelector('.sidebar__cross');
+const crossButton = document.querySelector('.sidebar__close-button');
 
 /**
  * Button to reset search bar.
