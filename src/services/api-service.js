@@ -19,6 +19,28 @@ class APIService {
     }
 
     /**
+     * Fetches data from the specified URL.
+     *
+     * @async
+     * @function fetchData
+     * @param {string} url - The URL from which to fetch data. This should be a valid URL string.
+     * @returns {Promise<Object>} - A promise that resolves to the JSON data retrieved from the specified URL.
+     * @throws {Error} - Throws an error if the fetch operation fails or if the response status is not OK.
+     */
+    async fetchData(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            throw error;
+        }
+    }
+
+    /**
      * Fetches data from the Pokémon API and transforms it.
      *
      * @async
@@ -27,13 +49,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
     async fetchPokemonData() {
-        try {
-            const response = await fetch(`${API_BASE_URL}/pokedex/national`);
-            const result = await response.json();
-            return this.transformPokemonData(result.pokemon_entries);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+        const result = await this.fetchData(`${API_BASE_URL}/pokedex/national`);
+        return this.transformPokemonData(result.pokemon_entries);
     }
 
     /**
@@ -43,11 +60,11 @@ class APIService {
      * @returns {Array<Object>} - The transformed Pokémon data.
      */
     transformPokemonData(wholeData) {
-        return wholeData.map(pokemonEntry => ({
-            id: pokemonEntry.entry_number,
-            name: pokemonEntry.pokemon_species.name,
-            image: `${API_ASSETS_URL}/cms2/img/pokedex/detail/${String(pokemonEntry.entry_number).padStart(3, '0')}.png`,
-            url: pokemonEntry.pokemon_species.url
+        return wholeData.map(({ entry_number, pokemon_species }) => ({
+            id: entry_number,
+            name: pokemon_species.name,
+            image: `${API_ASSETS_URL}/cms2/img/pokedex/detail/${String(entry_number).padStart(3, '0')}.png`,
+            url: pokemon_species.url
         }));
     }
 
@@ -58,14 +75,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
     async fetchPokemonTypes() {
-        try {
-            const response = await fetch(`${API_BASE_URL}/type`);
-            const result = await response.json();
-            return this.transformStructuredData(result.results);
-        } catch (error) {
-            console.error('[fetchPokemonTypes] Error fetching data:', error);
-            throw error;
-        }
+        const result = await this.fetchData(`${API_BASE_URL}/type`);
+        return this.transformStructuredData(result.results);
     }
 
     /**
@@ -76,14 +87,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
     async fetchSpecificTypePokemons(url) {
-        try {
-            const response = await fetch(url);
-            const result = await response.json();
-            return result.pokemon.map(elm => elm.pokemon.name);
-        } catch (error) {
-            console.error('[fetchSpecificTypePokemons] Error fetching data:', error);
-            throw error;
-        }
+        const result = await this.fetchData(url);
+        return result.pokemon.map(elm => elm.pokemon.name);
     }
 
     /**
@@ -93,14 +98,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
     async fetchPokemonColors() {
-        try {
-            const response = await fetch(`${API_BASE_URL}/pokemon-color`);
-            const result = await response.json();
-            return this.transformStructuredData(result.results);
-        } catch (error) {
-            console.error('[fetchPokemonColors] Error fetching data:', error);
-            throw error;
-        }
+        const result = await this.fetchData(`${API_BASE_URL}/pokemon-color`);
+        return this.transformStructuredData(result.results);
     }
 
     /**
@@ -111,14 +110,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
     async fetchSpecificColorPokemons(url) {
-        try {
-            const response = await fetch(url);
-            const result = await response.json();
-            return result.pokemon_species.map(elm => elm.name);
-        } catch (error) {
-            console.error('[fetchSpecificColorPokemons] Error fetching data:', error);
-            throw error;
-        }
+        const result = await this.fetchData(url);
+        return result.pokemon_species.map(elm => elm.name);
     }
 
     /**
@@ -128,14 +121,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
     async fetchPokemonGenders() {
-        try {
-            const response = await fetch(`${API_BASE_URL}/gender`);
-            const result = await response.json();
-            return this.transformStructuredData(result.results);
-        } catch (error) {
-            console.error('[fetchPokemonGenders] Error fetching data:', error);
-            throw error;
-        }
+        const result = await this.fetchData(`${API_BASE_URL}/gender`);
+        return this.transformStructuredData(result.results);
     }
 
     /**
@@ -146,14 +133,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails.
      */
     async fetchSpecificGenderPokemons(url) {
-        try {
-            const response = await fetch(url);
-            const result = await response.json();
-            return result.pokemon_species_details.map(elm => elm.pokemon_species.name);
-        } catch (error) {
-            console.error('[fetchSpecificGenderPokemons] Error fetching data:', error);
-            throw error;
-        }
+        const result = await this.fetchData(url);
+        return result.pokemon_species_details.map(elm => elm.pokemon_species.name);
     }
 
     /**
@@ -164,14 +145,8 @@ class APIService {
      * @throws {Error} - Throws an error if the fetch operation fails or if there is a problem processing the data.
      */
     async fetchMoreInfoPokemons(url) {
-        try {
-            const response = await fetch(url);
-            const result = await response.json();
-            return this.structureMoreInfo(result);
-        } catch (error) {
-            console.error('[fetchSpecificGenderPokemons] Error fetching data:', error);
-            throw error;
-        }
+        const result = await this.fetchData(url);
+        return this.structureMoreInfo(result);
     }
 
     /**
@@ -181,41 +156,41 @@ class APIService {
      * @returns {string} - A formatted string containing detailed information about the Pokémon.
      */
     structureMoreInfo(data) {
-        let output = '';
+        const lines = [];
 
-        if (data.id !== undefined && data.id !== null) {
-            output += `Number: #${data.id} \n`;
+        if (data.id != null) {
+            lines.push(`Number: #${data.id}`);
         }
 
         if (data.name) {
-            output += `Name: ${this.capitalize(data.name)} \n`;
+            lines.push(`Name: ${this.capitalize(data.name)}`);
         }
 
-        if (data.color && data.color.name) {
-            output += `Color: ${this.capitalize(data.color.name)} \n`;
+        if (data.color?.name) {
+            lines.push(`Color: ${this.capitalize(data.color.name)}`);
         }
 
-        if (data.capture_rate !== undefined && data.capture_rate !== null) {
-            output += `Capture rate: ${data.capture_rate} \n`;
+        if (data.capture_rate != null) {
+            lines.push(`Capture rate: ${data.capture_rate}`);
         }
 
-        if (data.habitat && data.habitat.name) {
-            output += `Habitat: ${this.capitalize(data.habitat.name)} \n`;
+        if (data.habitat?.name) {
+            lines.push(`Habitat: ${this.capitalize(data.habitat.name)}`);
         }
 
-        if (data.egg_groups && data.egg_groups.length > 0) {
-            output += `Egg groups: ${data.egg_groups.map(gr => this.capitalize(gr.name)).join(',  ')} \n`;
+        if (data.egg_groups?.length) {
+            lines.push(`Egg groups: ${data.egg_groups.map(gr => this.capitalize(gr.name)).join(', ')}`);
         }
 
-        if (data.is_legendary !== undefined) {
-            output += `Is legendary: ${data.is_legendary ? 'Yes' : 'No'} \n`;
+        if (data.is_legendary != null) {
+            lines.push(`Is legendary: ${data.is_legendary ? 'Yes' : 'No'}`);
         }
 
-        if (data.is_mythical !== undefined) {
-            output += `Is mystical: ${data.is_mythical ? 'Yes' : 'No'} \n`;
+        if (data.is_mythical != null) {
+            lines.push(`Is mystical: ${data.is_mythical ? 'Yes' : 'No'}`);
         }
 
-        return output;
+        return lines.join('\n');
     }
 
     /**
@@ -225,6 +200,9 @@ class APIService {
      * @returns {string} - The capitalized text.
      */
     capitalize(text) {
+        if (typeof text !== 'string' || text.length === 0) {
+            return text; // Return original input if it's not a string or is empty
+        }
         return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
@@ -236,6 +214,10 @@ class APIService {
      * @returns {Object} - An object where the keys are Pokémon names and the values are objects containing a URL and an empty data array.
      */
     transformStructuredData(wholeData) {
+        if (!Array.isArray(wholeData)) {
+            throw new TypeError('Expected an array of objects');
+        }
+
         return wholeData.reduce((acc, { name, url }) => {
             acc[name] = { url: url, data: [] };
             return acc;
