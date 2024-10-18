@@ -38,7 +38,7 @@ class PokeballLoader extends HTMLElement {
         shadow.innerHTML = '';
 
         // Create loader structure
-        const loaderContainer = createElementWithClass('div', 'loader', 'loader--hide');
+        const loaderContainer = createElementWithClass('div', 'loader');
         const loaderItem = createElementWithClass('div', 'loader__item');
         const ball = createElementWithClass('div', 'loader__ball');
         const topHalfBall = createElementWithClass('div', 'loader__top-half-ball');
@@ -71,8 +71,7 @@ class PokeballLoader extends HTMLElement {
     show() {
         this.activeRequests += 1;
         const loaderElement = this.shadowRoot.querySelector('.loader');
-        loaderElement.classList.remove('loader--hide');
-        loaderElement.classList.add('loader--show');
+        loaderElement.classList.add('loader--visible');
     }
 
     /**
@@ -86,8 +85,7 @@ class PokeballLoader extends HTMLElement {
         if (this.activeRequests <= 0) {
             this.activeRequests = 0;
             const loaderElement = this.shadowRoot.querySelector('.loader');
-            loaderElement.classList.remove('loader--show');
-            loaderElement.classList.add('loader--hide');
+            loaderElement.classList.remove('loader--visible');
         }
     }
 }
