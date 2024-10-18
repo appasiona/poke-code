@@ -1,3 +1,5 @@
+
+
 /**
  * @module
  * @description
@@ -5,6 +7,7 @@
  */
 
 import apiService from '../services/api-service.js';
+import { createElementWithClass } from '../utils/helper.js';
 
 /**
  * @module
@@ -54,7 +57,7 @@ const crossButton = document.querySelector('.sidebar__close-button');
  * Button to reset search bar.
  * @type {HTMLElement}
  */
-const resetSearchBox = document.querySelector('.header__search-icon--right');
+const resetSearchBox = document.querySelector('.header__search-cross');
 
 /**
  * Button to reset all filters.
@@ -84,10 +87,8 @@ const resetGenderButton = document.getElementById('reset-gender-button');
  * DOM element for displaying a "No Pokémons found" message.
  * @type {HTMLElement}
  */
-const noResultsMessage = document.createElement('div');
+const noResultsMessage = createElementWithClass('div', 'content__no-results');
 noResultsMessage.textContent = 'No Pokémons found...';
-noResultsMessage.className = 'content__no-results';
-noResultsMessage.style.display = 'none';
 cardsContainer.parentElement.appendChild(noResultsMessage);
 
 /**
@@ -166,9 +167,9 @@ const loadNextBatch = () => {
 
     // Hide load more button if no more data
     if (currentBatchIndex >= filteredData.length) {
-        loadMoreButton.style.display = 'none';
+        loadMoreButton.classList.remove('content__button--visible');
     } else {
-        loadMoreButton.style.display = 'block';
+        loadMoreButton.classList.add('content__button--visible');
     }
 
     loader.hide();
@@ -337,7 +338,7 @@ function showSearchDropdown(items) {
     searchDropdown.innerHTML = '';
 
     if (items.length === 0) {
-        searchDropdown.style.display = 'none';
+        searchDropdown.classList.remove('header__search-dropdown--visible');
         return;
     }
 
@@ -347,13 +348,13 @@ function showSearchDropdown(items) {
         div.className = 'header__search-dropdown-item';
         div.addEventListener('click', () => {
             searchInput.value = item.name.charAt(0).toUpperCase() + item.name.slice(1);
-            searchDropdown.style.display = 'none';
+            searchDropdown.classList.remove('header__search-dropdown--visible');
             filterData();
         });
         searchDropdown.appendChild(div);
     });
 
-    searchDropdown.style.display = 'block';
+    searchDropdown.classList.add('header__search-dropdown--visible');
 }
 
 
@@ -368,9 +369,9 @@ const filterData = async () => {
     const query = searchInput.value.trim().toLowerCase();
 
     if (query !== '') {
-        resetSearchBox.style.display = 'block';
+        resetSearchBox.classList.add('header__search-cross--visible');
     } else {
-        resetSearchBox.style.display = 'none';
+        resetSearchBox.classList.remove('header__search-cross--visible');
     }
 
     const { types, colors, genders } = getSelectedFilters();
@@ -392,15 +393,15 @@ const filterData = async () => {
         cardsContainer.innerHTML = '';
 
         if (filteredData.length === 0) {
-            noResultsMessage.style.display = 'block';
-            loadMoreButton.style.display = 'none';
+            noResultsMessage.classList.add('content__no-results--visible');
+            loadMoreButton.classList.remove('content__button--visible');
         } else {
-            noResultsMessage.style.display = 'none';
+            noResultsMessage.classList.remove('content__no-results--visible');
             loadNextBatch();
         }
     } catch (error) {
         console.error('[filterData] Error filtering data:', error);
-        noResultsMessage.style.display = 'block';
+        noResultsMessage.classList.add('content__no-results--visible');
     } finally {
         loader.hide();
     }
@@ -486,7 +487,7 @@ const resetGenderFilter = async () => {
  */
 const resetSearchBoxFilter = () => {
     searchInput.value = '';
-    resetSearchBox.style.display = 'none';
+    resetSearchBox.classList.remove('header__search-cross--visible');
     filterData();
 };
 
@@ -541,7 +542,7 @@ document.addEventListener('DOMContentLoaded', loadInitialData);
  */
 document.addEventListener('click', (event) => {
     if (!event.target.closest('.header__search')) {
-        searchDropdown.style.display = 'none';
+        searchDropdown.classList.remove('header__search-dropdown--visible');
     }
 
     if (!event.target.closest('.main__filter-button') && !event.target.closest('.sidebar')) {
