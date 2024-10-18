@@ -51,7 +51,7 @@ class PokemonCard extends HTMLElement {
 
         const imgFront = createElementWithClass('img', 'card__image');
         imgFront.alt = this.getAttribute('name') || 'Pokemon image';
-        imgFront.src = this.getAttribute('image');
+        imgFront.src = this.getAttribute('image') || '#'
 
         const textContainer = createElementWithClass('div', 'card__name');
 

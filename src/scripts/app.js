@@ -202,7 +202,7 @@ const getSelectedFilters = () => {
 const checkMatchType = async (pokemonName, types) => {
     if (types.length === 0) return true;
 
-    for (const type of types) {
+    for await (const type of types) {
         let typeElm = typeMap.get(type);
 
         if (typeElm && typeElm.data.length === 0) {
@@ -238,7 +238,7 @@ const checkMatchType = async (pokemonName, types) => {
 const checkMatchColor = async (pokemonName, colors) => {
     if (colors.length === 0) return true;
 
-    for (const color of colors) {
+    for await (const color of colors) {
         let colorElm = colorMap.get(color);
 
         if (colorElm && colorElm.data.length === 0) {
@@ -274,7 +274,7 @@ const checkMatchColor = async (pokemonName, colors) => {
 const checkMatchGender = async (pokemonName, genders) => {
     if (genders.includes('all')) return true;
 
-    for (const gender of genders) {
+    for await (const gender of genders) {
         let genderElm = genderMap.get(gender);
 
         if (genderElm && genderElm.data.length === 0) {
@@ -392,10 +392,6 @@ const filterData = async () => {
     }
 };
 
-
-
-
-
 /**
  * Resets all filters by calling the `resetTypeFilter`, `resetColorFilter`, and `resetGenderFilter` functions.
  * 
@@ -475,26 +471,27 @@ const closeFilters = () => {
 };
 
 
-// Set up the event to load more data when the button is clicked.
-contentElms.loadMoreButton.addEventListener('click', loadNextBatch);
+/**
+ * Initializes event listeners for various elements in the application.
+ * 
+ * @function
+ * @returns {void} This function does not return any value.
+ */
+const initializeEventListeners = () => {
+    headerElms.searchInput.addEventListener('input', filterDataFromSearchBar);
+    headerElms.resetSearchBox.addEventListener('click', resetSearchBoxFilter);
 
-// Set up the event to filter data when the search input changes.
-headerElms.searchInput.addEventListener('input', filterDataFromSearchBar);
+    sidebarElms.resetAllButton.addEventListener('click', resetAllFilters);
+    sidebarElms.resetColorButton.addEventListener('click', resetColorFilter);
+    sidebarElms.resetTypeButton.addEventListener('click', resetTypeFilter);
+    sidebarElms.resetGenderButton.addEventListener('click', resetGenderFilter);
+    sidebarElms.crossButton.addEventListener('click', closeFilters);
+    sidebarContainer.querySelector('.sidebar__main-fieldset').addEventListener('change', filterData);
 
-// Add event listeners for the buttons
-sidebarElms.resetAllButton.addEventListener('click', resetAllFilters);
-sidebarElms.resetColorButton.addEventListener('click', resetColorFilter);
-sidebarElms.resetTypeButton.addEventListener('click', resetTypeFilter);
-sidebarElms.resetGenderButton.addEventListener('click', resetGenderFilter);
-
-
-headerElms.resetSearchBox.addEventListener('click', resetSearchBoxFilter);
-mobileFilterButton.addEventListener('click', showFilters);
-sidebarElms.crossButton.addEventListener('click', closeFilters);
-
-// Set up the event to filter data when any checkbox or radio button changes.
-sidebarContainer.querySelector('.sidebar__main-fieldset').addEventListener('change', filterData);
-
+    contentElms.loadMoreButton.addEventListener('click', loadNextBatch);
+    
+    mobileFilterButton.addEventListener('click', showFilters);
+}
 
 /**
  * Loads the initial data for Pokémon, types, colors, and genders, then applies the initial filter.
@@ -520,6 +517,7 @@ const loadInitialData = async () => {
 
 
 const initializeComponent = async () => {
+    initializeEventListeners();
     loadInitialData();
 }
 
