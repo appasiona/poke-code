@@ -100,7 +100,7 @@
 </head>
 
 <body class="page">
-    <header class="header">
+    <header class="header" id="header">
         <div class="header__logo">
             <img class="header__img" src="src/images/poke-code-logo.png" alt="Logo POKE:CODE">
         </div>
@@ -328,7 +328,7 @@
                 <button class="sidebar__filter-button sidebar__filter-button--no-margin" id="reset-all-button"><i class="bi bi-arrow-clockwise"></i> Reset all filters</button>
             </fieldset>
         </aside>
-        <section class="content">
+        <section class="content" id="content">
             <pokeball-loader></pokeball-loader>
             <p class="content__title"> Choose a pokemon to get more information</p>
             <div class="content__cards">
@@ -337,6 +337,7 @@
             <div class="content__button-container">
                 <button class="content__button">Load more</button>
             </div>
+            <div class="content__no-results">No Pokémons found...</div>
         </section>
     </main>
     <script type="module" src="src/scripts/app.js"></script>
