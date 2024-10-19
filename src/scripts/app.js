@@ -82,22 +82,6 @@ const headerElms = {
 const sidebarContainer = document.getElementById('sidebar');
 
 /**
- * @const {Object} sidebarElms - Elements within the sidebar.
- * @property {HTMLElement} sidebarElms.crossButton - Button to close the sidebar.
- * @property {HTMLElement} sidebarElms.resetAllButton - Button to reset all filters in the sidebar.
- * @property {HTMLElement} sidebarElms.resetColorButton - Button to reset the color filter in the sidebar.
- * @property {HTMLElement} sidebarElms.resetTypeButton - Button to reset the type filter in the sidebar.
- * @property {HTMLElement} sidebarElms.resetGenderButton - Button to reset the gender filter in the sidebar.
- */
-const sidebarElms = {
-    crossButton: sidebarContainer.querySelector('.sidebar__close-button'),
-    resetAllButton: sidebarContainer.querySelector('#reset-all-button'),
-    resetColorButton: sidebarContainer.querySelector('#reset-color-button'),
-    resetTypeButton: sidebarContainer.querySelector('#reset-type-button'),
-    resetGenderButton: sidebarContainer.querySelector('#reset-gender-button')
-};
-
-/**
  * @const {HTMLElement} mobileFilterButton - Button to show filters on mobile devices.
  */
 const mobileFilterButton = document.querySelector('.main__filter-button');
@@ -145,49 +129,52 @@ const renderCards = (pokemonList) => {
  * @returns {void}
  */
 const loadNextBatch = () => {
-    contentElms.loader.show();
-    const batch = filteredData.slice(currentBatchIndex, currentBatchIndex + batchSize);
-    currentBatchIndex += batchSize;
-    renderCards(batch);
-
-    // Hide load more button if no more data
     if (currentBatchIndex >= filteredData.length) {
         contentElms.loadMoreButton.classList.remove('content__button--visible');
-    } else {
-        contentElms.loadMoreButton.classList.add('content__button--visible');
+        return;
     }
+
+    contentElms.loader.show();
+
+    const batch = filteredData.slice(currentBatchIndex, currentBatchIndex + batchSize);
+    currentBatchIndex += batchSize;
+
+    renderCards(batch);
+
+    const hasMoreData = currentBatchIndex < filteredData.length;
+    contentElms.loadMoreButton.classList.toggle('content__button--visible', hasMoreData);
 
     contentElms.loader.hide();
 };
-
 
 /**
  * Gets the selected filters for types, colors, and genders.
  *
  * @function
- * @returns {Object} - Object containing arrays of selected types, colors, and genders.
+ * @returns {Object} - Object containing arrays of selected types, colors and gender.
  */
 const getSelectedFilters = () => {
     const selectedFilters = {
         types: [],
         colors: [],
-        genders: []
+        gender: ''
     };
 
-    // Get selected types
-    sidebarContainer.querySelectorAll(".sidebar__type-checkbox:checked").forEach((checkbox) => {
-        selectedFilters.types.push(checkbox.value);
+    const filterMap = {
+        types: ".sidebar__type-checkbox:checked",
+        colors: ".sidebar__color-checkbox:checked",
+    };
+
+    Object.keys(filterMap).forEach(key => {
+        sidebarContainer.querySelectorAll(filterMap[key]).forEach(el => {
+            selectedFilters[key].push(el.value);
+        });
     });
 
-    // Get selected colors
-    sidebarContainer.querySelectorAll(".sidebar__color-checkbox:checked").forEach((checkbox) => {
-        selectedFilters.colors.push(checkbox.value);
-    });
-
-    // Get selected genders
-    sidebarContainer.querySelectorAll(".sidebar__gender-radio:checked").forEach((radio) => {
-        selectedFilters.genders.push(radio.value);
-    });
+    const genderEl = sidebarContainer.querySelector(".sidebar__gender-radio:checked");
+    if (genderEl) {
+        selectedFilters.gender = genderEl.value;
+    }
 
     return selectedFilters;
 };
@@ -268,33 +255,31 @@ const checkMatchColor = async (pokemonName, colors) => {
  * Checks if a Pokémon matches any of the specified genders.
  * 
  * @param {string} pokemonName - The name of the Pokémon.
- * @param {Array<string>} genders - The list of genders to check against.
+ * @param {Array<string>} gender - The gender to check against.
  * @returns {Promise<boolean>} - True if the Pokémon matches any gender, otherwise false.
  */
-const checkMatchGender = async (pokemonName, genders) => {
-    if (genders.includes('all')) return true;
+const checkMatchGender = async (pokemonName, gender) => {
+    if (gender === 'all') return true;
 
-    for await (const gender of genders) {
-        let genderElm = genderMap.get(gender);
+    let genderElm = genderMap.get(gender);
 
-        if (genderElm && genderElm.data.length === 0) {
-            genderElm.data = apiService.fetchSpecificGenderPokemons(genderElm.url)
-                .then(pokemonList => {
-                    genderElm.data = pokemonList;
-                    return pokemonList;
-                })
-                .catch(error => {
-                    console.error(`[checkMatchGender] Error fetching gender data for <${gender}>:`, error);
-                    return [];
-                });
+    if (genderElm && genderElm.data.length === 0) {
+        genderElm.data = apiService.fetchSpecificGenderPokemons(genderElm.url)
+            .then(pokemonList => {
+                genderElm.data = pokemonList;
+                return pokemonList;
+            })
+            .catch(error => {
+                console.error(`[checkMatchGender] Error fetching gender data for <${gender}>:`, error);
+                return [];
+            });
 
-            genderMap.set(gender, genderElm);
-        }
+        genderMap.set(gender, genderElm);
+    }
 
-        const genderData = await genderElm.data;
-        if (genderData.includes(pokemonName)) {
-            return true;
-        }
+    const genderData = await genderElm.data;
+    if (genderData.includes(pokemonName)) {
+        return true;
     }
 
     return false;
@@ -319,7 +304,7 @@ const filterDataFromSearchBar = async () => {
  * @param {Array<Object>} items - An array of objects to display in the dropdown. Each object should have an `id` and `name` property.
  * @returns {void}
  */
-function showSearchDropdown(items) {
+const showSearchDropdown = (items) => {
     headerElms.searchDropdown.innerHTML = '';
 
     if (items.length === 0) {
@@ -327,20 +312,29 @@ function showSearchDropdown(items) {
         return;
     }
 
+    // Use a document fragment to avoid repeated DOM manipulations
+    const fragment = document.createDocumentFragment();
+
+    // Reusable function to handle click on each dropdown item
+    const handleClick = (item) => {
+        headerElms.searchInput.value = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+        headerElms.searchDropdown.classList.remove('header__search-dropdown--visible');
+        filterData();
+    };
+
+    // Add items to the fragment
     items.forEach(item => {
         const div = document.createElement('div');
         div.textContent = `#${item.id} ${item.name}`;
         div.className = 'header__search-dropdown-item';
-        div.addEventListener('click', () => {
-            headerElms.searchInput.value = item.name.charAt(0).toUpperCase() + item.name.slice(1);
-            headerElms.searchDropdown.classList.remove('header__search-dropdown--visible');
-            filterData();
-        });
-        headerElms.searchDropdown.appendChild(div);
+        div.addEventListener('click', () => handleClick(item));
+        fragment.appendChild(div);
     });
 
+    // Append the entire fragment to the dropdown in one operation
+    headerElms.searchDropdown.appendChild(fragment);
     headerElms.searchDropdown.classList.add('header__search-dropdown--visible');
-}
+};
 
 
 /**
@@ -348,24 +342,25 @@ function showSearchDropdown(items) {
  * 
  * @returns {Promise<void>} - Resolves when the data has been filtered and displayed.
  */
+
 const filterData = async () => {
     contentElms.loader.show();
 
     const query = headerElms.searchInput.value.trim().toLowerCase();
 
-    if (query !== '') {
-        headerElms.resetSearchBox.classList.add('header__search-cross--visible');
-    } else {
-        headerElms.resetSearchBox.classList.remove('header__search-cross--visible');
-    }
+    headerElms.resetSearchBox.classList.toggle('header__search-cross--visible', query !== '');
 
-    const { types, colors, genders } = getSelectedFilters();
+    const { types, colors, gender } = getSelectedFilters();
 
     const filteredDataPromises = pokemonData.map(async pokemon => {
+
         const matchesQuery = query === '' || pokemon.name.toLowerCase().includes(query) || pokemon.id.toString().includes(query);
-        const matchesType = await checkMatchType(pokemon.name, types);
-        const matchesColor = await checkMatchColor(pokemon.name, colors);
-        const matchesGender = await checkMatchGender(pokemon.name, genders);
+
+        const [matchesType, matchesColor, matchesGender] = await Promise.all([
+            checkMatchType(pokemon.name, types),
+            checkMatchColor(pokemon.name, colors),
+            checkMatchGender(pokemon.name, gender)
+        ]);
 
         return matchesQuery && matchesType && matchesColor && matchesGender ? pokemon : null;
     });
@@ -377,12 +372,13 @@ const filterData = async () => {
         currentBatchIndex = 0;
         contentElms.cardsContainer.innerHTML = '';
 
-        if (filteredData.length === 0) {
-            contentElms.noResultsMessage.classList.add('content__no-results--visible');
-            contentElms.loadMoreButton.classList.remove('content__button--visible');
-        } else {
-            contentElms.noResultsMessage.classList.remove('content__no-results--visible');
+        const hasResults = filteredData.length > 0;
+        contentElms.noResultsMessage.classList.toggle('content__no-results--visible', !hasResults);
+
+        if (hasResults) {
             loadNextBatch();
+        } else {
+            contentElms.loadMoreButton.classList.remove('content__button--visible');
         }
     } catch (error) {
         console.error('[filterData] Error filtering data:', error);
@@ -393,15 +389,28 @@ const filterData = async () => {
 };
 
 /**
- * Resets all filters by calling the `resetTypeFilter`, `resetColorFilter`, and `resetGenderFilter` functions.
+ * Resets all filters by calling the `resetTypeFilter`, `resetColorFilter`, and `resetGenderFilter` functions and recalculate data.
  * 
  * @returns {void} - This function does not return any value.
  */
 const resetAllFilters = async () => {
-    await resetTypeFilter();
-    await resetColorFilter();
-    await resetGenderFilter();
+    resetTypeFilter();
+    resetColorFilter();
+    resetGenderFilter();
+    await filterData();
 };
+
+/**
+ * Resets the color filter and updates the displayed data based on the current filters.
+ *
+ * @async
+ * @function resetColorFilterClick
+ * @returns {Promise<void>} A promise that resolves when the data filtering is complete.
+ */
+const resetColorFilterClick = async () => {
+    resetColorFilter();
+    await filterData();
+}
 
 /**
  * Resets the color filter by unchecking all selected color checkboxes.
@@ -412,20 +421,42 @@ const resetColorFilter = async () => {
     sidebarContainer.querySelectorAll(".sidebar__color-checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
-    await filterData();
 };
+
+/**
+ * Resets the type filter and updates the displayed data based on the current filters.
+ *
+ * @async
+ * @function resetTypeFilterClick
+ * @returns {Promise<void>} A promise that resolves when the data filtering is complete.
+ */
+const resetTypeFilterClick = async () => {
+    resetTypeFilter();
+    await filterData();
+}
 
 /**
  * Resets the type filter by unchecking all selected type checkboxes.
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetTypeFilter = async () => {
+const resetTypeFilter = () => {
     sidebarContainer.querySelectorAll(".sidebar__type-checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
-    await filterData();
 };
+
+/**
+ * Resets the gender filter and updates the displayed data based on the current filters.
+ *
+ * @async
+ * @function resetGenderFilterClick
+ * @returns {Promise<void>} A promise that resolves when the data filtering is complete.
+ */
+const resetGenderFilterClick = async () => {
+    resetGenderFilter();
+    await filterData();
+}
 
 /**
  * Resets the gender filter by selecting the "all" radio button and ensuring that no other gender radio buttons are selected.
@@ -437,8 +468,6 @@ const resetGenderFilter = async () => {
     if (allRadioButton) {
         allRadioButton.checked = true;
     }
-
-    await filterData();
 };
 
 /**
@@ -478,18 +507,22 @@ const closeFilters = () => {
  * @returns {void} This function does not return any value.
  */
 const initializeEventListeners = () => {
+
     headerElms.searchInput.addEventListener('input', filterDataFromSearchBar);
     headerElms.resetSearchBox.addEventListener('click', resetSearchBoxFilter);
 
-    sidebarElms.resetAllButton.addEventListener('click', resetAllFilters);
-    sidebarElms.resetColorButton.addEventListener('click', resetColorFilter);
-    sidebarElms.resetTypeButton.addEventListener('click', resetTypeFilter);
-    sidebarElms.resetGenderButton.addEventListener('click', resetGenderFilter);
-    sidebarElms.crossButton.addEventListener('click', closeFilters);
+    sidebarContainer.addEventListener('click', (event) => {
+        if (event.target.matches('#reset-type-button')) resetTypeFilterClick();
+        if (event.target.matches('#reset-color-button')) resetColorFilterClick();
+        if (event.target.matches('#reset-gender-button')) resetGenderFilterClick();
+        if (event.target.matches('#reset-all-button')) resetAllFilters();
+        if (event.target.closest('.sidebar__close-button')) closeFilters();
+    });
+
     sidebarContainer.querySelector('.sidebar__main-fieldset').addEventListener('change', filterData);
 
     contentElms.loadMoreButton.addEventListener('click', loadNextBatch);
-    
+
     mobileFilterButton.addEventListener('click', showFilters);
 }
 
@@ -515,7 +548,13 @@ const loadInitialData = async () => {
     }
 };
 
-
+/**
+ * Initializes the component by setting up event listeners and loading the initial data.
+ *
+ * @async
+ * @function initializeComponent
+ * @returns {Promise<void>} A promise that resolves when the initial data loading is complete.
+ */
 const initializeComponent = async () => {
     initializeEventListeners();
     loadInitialData();
