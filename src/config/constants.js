@@ -1,4 +1,16 @@
 /**
+ * Base URL for the Pokémon API, used to fetch data about Pokémon.
+ * @constant {string}
+ */
+export const API_BASE_URL = 'https://pokeapi.co/api/v2';
+
+/**
+ * Base URL for Pokémon assets, used to fetch media assets such as images.
+ * @constant {string}
+ */
+export const API_ASSETS_URL = 'https://assets.pokemon.com/assets';
+
+/**
  * Array to hold the initial Pokémon data.
  * @type {Array<Object>}
  */
@@ -25,7 +37,7 @@ export const genderMap = new Map();
 /**
  * @const {HTMLElement} header - The header container element.
  */
-export const headerContainer = document.getElementById('header');
+const headerContainer = document.getElementById('header');
 
 /**
  * @const {Object} headerElms - Elements within the header.
@@ -52,7 +64,7 @@ export const mobileFilterButton = document.querySelector('.main__filter-button')
 /**
  * @const {HTMLElement} content - The content container element.
  */
-export const contentContainer = document.getElementById('content');
+const contentContainer = document.getElementById('content');
 
 /**
  * @const {Object} contentElms - Elements within the content container.
