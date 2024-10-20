@@ -1,4 +1,5 @@
-import { API_BASE_URL, API_ASSETS_URL } from '../utils/constants.js';
+import { API_BASE_URL } from '../config/constants.js';
+import { structureMoreInfo, transformPokemonData, transformStructuredData } from '../utils/helper.js';
 
 /**
  * Class for interacting with the Pokémon API.
@@ -12,10 +13,6 @@ class APIService {
      * @constructor
      */
     constructor() {
-        /** 
-         * @property {number} currentIndex - Index for tracking data retrieval.
-         */
-        this.currentIndex = 0;
     }
 
     /**
@@ -50,22 +47,7 @@ class APIService {
      */
     async fetchPokemonData() {
         const result = await this.fetchData(`${API_BASE_URL}/pokedex/national`);
-        return this.transformPokemonData(result.pokemon_entries);
-    }
-
-    /**
-     * Transforms raw Pokémon data into a structured format.
-     *
-     * @param {Array<Object>} wholeData - The raw Pokémon data from the API.
-     * @returns {Array<Object>} - The transformed Pokémon data.
-     */
-    transformPokemonData(wholeData) {
-        return wholeData.map(({ entry_number, pokemon_species }) => ({
-            id: entry_number,
-            name: pokemon_species.name,
-            image: `${API_ASSETS_URL}/cms2/img/pokedex/detail/${String(entry_number).padStart(3, '0')}.png`,
-            url: pokemon_species.url
-        }));
+        return transformPokemonData(result.pokemon_entries);
     }
 
     /**
@@ -76,7 +58,7 @@ class APIService {
      */
     async fetchPokemonTypes() {
         const result = await this.fetchData(`${API_BASE_URL}/type`);
-        return this.transformStructuredData(result.results);
+        return transformStructuredData(result.results);
     }
 
     /**
@@ -99,7 +81,7 @@ class APIService {
      */
     async fetchPokemonColors() {
         const result = await this.fetchData(`${API_BASE_URL}/pokemon-color`);
-        return this.transformStructuredData(result.results);
+        return transformStructuredData(result.results);
     }
 
     /**
@@ -122,7 +104,7 @@ class APIService {
      */
     async fetchPokemonGenders() {
         const result = await this.fetchData(`${API_BASE_URL}/gender`);
-        return this.transformStructuredData(result.results);
+        return transformStructuredData(result.results);
     }
 
     /**
@@ -146,84 +128,8 @@ class APIService {
      */
     async fetchMoreInfoPokemons(url) {
         const result = await this.fetchData(url);
-        return this.structureMoreInfo(result);
+        return structureMoreInfo(result);
     }
-
-    /**
-     * Transforms Pokémon data into a human-readable format.
-     * 
-     * @param {Object} data - The raw Pokémon data object.
-     * @returns {string} - A formatted string containing detailed information about the Pokémon.
-     */
-    structureMoreInfo(data) {
-        const lines = [];
-
-        if (data.id != null) {
-            lines.push(`Number: #${data.id}`);
-        }
-
-        if (data.name) {
-            lines.push(`Name: ${this.capitalize(data.name)}`);
-        }
-
-        if (data.color?.name) {
-            lines.push(`Color: ${this.capitalize(data.color.name)}`);
-        }
-
-        if (data.capture_rate != null) {
-            lines.push(`Capture rate: ${data.capture_rate}`);
-        }
-
-        if (data.habitat?.name) {
-            lines.push(`Habitat: ${this.capitalize(data.habitat.name)}`);
-        }
-
-        if (data.egg_groups?.length) {
-            lines.push(`Egg groups: ${data.egg_groups.map(gr => this.capitalize(gr.name)).join(', ')}`);
-        }
-
-        if (data.is_legendary != null) {
-            lines.push(`Is legendary: ${data.is_legendary ? 'Yes' : 'No'}`);
-        }
-
-        if (data.is_mythical != null) {
-            lines.push(`Is mystical: ${data.is_mythical ? 'Yes' : 'No'}`);
-        }
-
-        return lines.join('\n');
-    }
-
-    /**
-     * Capitalizes the first letter of a given text string.
-     *
-     * @param {string} text - The text to be capitalized.
-     * @returns {string} - The capitalized text.
-     */
-    capitalize(text) {
-        if (typeof text !== 'string' || text.length === 0) {
-            return text; // Return original input if it's not a string or is empty
-        }
-        return text.charAt(0).toUpperCase() + text.slice(1);
-    }
-
-
-    /**
-     * Transforms structured data from the API into a format suitable for internal use.
-     * 
-     * @param {Array<Object>} wholeData - The raw data from the API, containing objects with `name` and `url` properties.
-     * @returns {Object} - An object where the keys are Pokémon names and the values are objects containing a URL and an empty data array.
-     */
-    transformStructuredData(wholeData) {
-        if (!Array.isArray(wholeData)) {
-            throw new TypeError('Expected an array of objects');
-        }
-
-        return wholeData.reduce((acc, { name, url }) => {
-            acc[name] = { url: url, data: [] };
-            return acc;
-        }, {});
-    }
-
 }
 
 const apiService = new APIService();
