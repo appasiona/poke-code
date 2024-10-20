@@ -324,9 +324,8 @@ const showSearchDropdown = (items) => {
 
     // Add items to the fragment
     items.forEach(item => {
-        const div = document.createElement('div');
+        const div = createElementWithClass('div', 'header__search-dropdown-item');
         div.textContent = `#${item.id} ${item.name}`;
-        div.className = 'header__search-dropdown-item';
         div.addEventListener('click', () => handleClick(item));
         fragment.appendChild(div);
     });
