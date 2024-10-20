@@ -3,10 +3,38 @@
  * @description Module for initializing the application.
  */
 
-import { colorMap, contentElms, genderMap, pokemonData, typeMap } from '../config/constants.js';
+import { colorMap, contentElms, genderMap, headerElms, mobileFilterButton, pokemonData, sidebarContainer, typeMap } from '../config/constants.js';
 import apiService from '../services/api-service.js';
-import { filterData } from './core.js';
-import { initializeEventListeners } from './ui.js';
+import { filterData, filterDataFromSearchBar, loadNextBatch } from './core.js';
+import { resetAllFilters, resetColorFilterClick, resetGenderFilterClick, resetSearchBoxFilter, resetTypeFilterClick } from "./filters.js";
+import { hideSidebar, showSidebar } from "./ui.js";
+
+
+/**
+ * Initializes event listeners for various elements in the application.
+ * 
+ * @function
+ * @returns {void} This function does not return any value.
+ */
+const initializeEventListeners = () => {
+
+    headerElms.searchInput.addEventListener('input', filterDataFromSearchBar);
+    headerElms.resetSearchBox.addEventListener('click', resetSearchBoxFilter);
+
+    sidebarContainer.addEventListener('click', (event) => {
+        if (event.target.matches('#reset-type-button')) resetTypeFilterClick();
+        if (event.target.matches('#reset-color-button')) resetColorFilterClick();
+        if (event.target.matches('#reset-gender-button')) resetGenderFilterClick();
+        if (event.target.matches('#reset-all-button')) resetAllFilters();
+        if (event.target.closest('.sidebar__close-button')) hideSidebar();
+    });
+
+    sidebarContainer.querySelector('.sidebar__main-fieldset').addEventListener('change', filterData);
+
+    contentElms.loadMoreButton.addEventListener('click', loadNextBatch);
+
+    mobileFilterButton.addEventListener('click', showSidebar);
+}
 
 
 /**

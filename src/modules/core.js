@@ -21,15 +21,13 @@ let currentBatchIndex = 0;
  */
 const batchSize = 20;
 
-
-
 /**
  * Filters the Pokémon data based on the search query and selected filters.
  * 
  * @returns {Promise<void>} - Resolves when the data has been filtered and displayed.
  */
 
-const filterData = async () => {
+export const filterData = async () => {
     contentElms.loader.show();
 
     const query = headerElms.searchInput.value.trim().toLowerCase();
@@ -81,7 +79,7 @@ const filterData = async () => {
  * @returns {Promise<void>} - Resolves when the data has been filtered and the dropdown has been updated.
  */
 
-const filterDataFromSearchBar = async () => {
+export const filterDataFromSearchBar = async () => {
     await filterData();
     const dropdownData = filteredData.slice(0, 5);
     showSearchDropdown(dropdownData);
@@ -93,7 +91,7 @@ const filterDataFromSearchBar = async () => {
  * @function
  * @returns {void}
  */
-const loadNextBatch = () => {
+export const loadNextBatch = () => {
     if (currentBatchIndex >= filteredData.length) {
         contentElms.loadMoreButton.classList.remove('content__button--visible');
         return;
@@ -217,6 +215,3 @@ const checkMatchGender = async (pokemonName, gender) => {
 
     return false;
 };
-
-
-export { checkMatchColor, checkMatchGender, checkMatchType, filterData, filterDataFromSearchBar, loadNextBatch };

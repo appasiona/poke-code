@@ -8,7 +8,7 @@ import { sidebarContainer, headerElms } from "../config/constants.js";
  * @function
  * @returns {Object} - Object containing arrays of selected types, colors and gender.
  */
-const getSelectedFilters = () => {
+export const getSelectedFilters = () => {
     const selectedFilters = {
         types: [],
         colors: [],
@@ -39,7 +39,7 @@ const getSelectedFilters = () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetAllFilters = async () => {
+export const resetAllFilters = async () => {
     resetTypeFilter();
     resetColorFilter();
     resetGenderFilter();
@@ -53,7 +53,7 @@ const resetAllFilters = async () => {
  * @function resetColorFilterClick
  * @returns {Promise<void>} A promise that resolves when the data filtering is complete.
  */
-const resetColorFilterClick = async () => {
+export const resetColorFilterClick = async () => {
     resetColorFilter();
     await filterData();
 }
@@ -63,7 +63,7 @@ const resetColorFilterClick = async () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetColorFilter = async () => {
+export const resetColorFilter = async () => {
     sidebarContainer.querySelectorAll(".sidebar__color-checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
@@ -76,7 +76,7 @@ const resetColorFilter = async () => {
  * @function resetTypeFilterClick
  * @returns {Promise<void>} A promise that resolves when the data filtering is complete.
  */
-const resetTypeFilterClick = async () => {
+export const resetTypeFilterClick = async () => {
     resetTypeFilter();
     await filterData();
 }
@@ -86,7 +86,7 @@ const resetTypeFilterClick = async () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetTypeFilter = () => {
+export const resetTypeFilter = () => {
     sidebarContainer.querySelectorAll(".sidebar__type-checkbox:checked").forEach((checkbox) => {
         checkbox.checked = false;
     });
@@ -99,7 +99,7 @@ const resetTypeFilter = () => {
  * @function resetGenderFilterClick
  * @returns {Promise<void>} A promise that resolves when the data filtering is complete.
  */
-const resetGenderFilterClick = async () => {
+export const resetGenderFilterClick = async () => {
     resetGenderFilter();
     await filterData();
 }
@@ -109,7 +109,7 @@ const resetGenderFilterClick = async () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetGenderFilter = async () => {
+export const resetGenderFilter = async () => {
     const allRadioButton = sidebarContainer.querySelector(".sidebar__gender-radio[id='all']");
     if (allRadioButton) {
         allRadioButton.checked = true;
@@ -121,29 +121,8 @@ const resetGenderFilter = async () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-const resetSearchBoxFilter = () => {
+export const resetSearchBoxFilter = () => {
     headerElms.searchInput.value = '';
     headerElms.resetSearchBox.classList.remove('header__search-cross--visible');
     filterData();
 };
-
-/**
- * Show filters box in mobile.
- * 
- * @returns {void} - This function does not return any value.
- */
-const showFilters = () => {
-    sidebarContainer.classList.add('sidebar--visible');
-};
-
-/**
- * Close sidebar in mobile.
- * 
- * @returns {void} - This function does not return any value.
- */
-const closeFilters = () => {
-    sidebarContainer.classList.remove('sidebar--visible');
-};
-
-
-export { getSelectedFilters, resetAllFilters, resetColorFilterClick, resetColorFilter, resetTypeFilterClick, resetTypeFilter, resetGenderFilterClick, resetGenderFilter, resetSearchBoxFilter, showFilters, closeFilters };
