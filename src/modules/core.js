@@ -1,7 +1,14 @@
-import { contentElms, headerElms, pokemonData, typeMap, colorMap, genderMap  } from "../config/constants.js";
-import { getSelectedFilters } from "./filters.js";
-import { showSearchDropdown, renderCards } from "./ui.js";
+import { contentElms, headerElms } from "../config/constants.js";
 import apiService from '../services/api-service.js';
+import { getSelectedFilters } from "./filters.js";
+import { renderCards, showSearchDropdown } from "./ui.js";
+
+
+/**
+ * Array to hold the initial Pokémon data.
+ * @type {Array<Object>}
+ */
+const pokemonData = [];
 
 /**
  * Array to hold the filtered Pokémon data.
@@ -20,6 +27,65 @@ let currentBatchIndex = 0;
  * @type {number}
  */
 const batchSize = 20;
+
+/**
+ * Map to hold Pokémon types.
+ * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
+ */
+export let typeMap = new Map();
+
+/**
+ * Map to hold Pokémon colors.
+ * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
+ */
+export let colorMap = new Map();
+
+/**
+ * Map to hold Pokémon genders.
+ * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
+ */
+export let genderMap = new Map();
+
+
+
+/**
+ * Fetches Pokémon data from the API and adds it to the `pokemonData` array.
+ * 
+ * @async
+ * @function getPokemonData
+ * @returns {Promise<void>} A promise that resolves when the Pokémon data has been fetched 
+ * and added to the array.
+ */
+export const getPokemonData = async () => {
+    pokemonData.push(...await apiService.fetchPokemonData());
+}
+
+/**
+ * Fetches Pokémon types from the API and populates the typeMap with the retrieved data.
+ * @async
+ * @returns {Promise<void>} A promise that resolves when the typeMap is populated.
+ */
+export const getPokemonTypes = async () => {
+    typeMap = new Map(Object.entries(await apiService.fetchPokemonTypes()));
+}
+
+/**
+ * Fetches Pokémon colors from the API and populates the colorMap with the retrieved data.
+ * @async
+ * @returns {Promise<void>} A promise that resolves when the colorMap is populated.
+ */
+export const getPokemonColors = async () => {
+    colorMap = new Map(Object.entries(await apiService.fetchPokemonColors()));
+}
+
+/**
+ * Fetches Pokémon genders from the API and populates the genderMap with the retrieved data.
+ * @async
+ * @returns {Promise<void>} A promise that resolves when the genderMap is populated.
+ */
+export const getPokemonGenders = async () => {
+    genderMap = new Map(Object.entries(await apiService.fetchPokemonGenders()));
+}
 
 /**
  * Filters the Pokémon data based on the search query and selected filters.

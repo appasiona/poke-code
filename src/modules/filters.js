@@ -121,8 +121,8 @@ export const resetGenderFilter = async () => {
  * 
  * @returns {void} - This function does not return any value.
  */
-export const resetSearchBoxFilter = () => {
+export const resetSearchBoxFilter = async () => {
     headerElms.searchInput.value = '';
     headerElms.resetSearchBox.classList.remove('header__search-cross--visible');
-    filterData();
+    await filterData();
 };

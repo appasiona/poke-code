@@ -3,9 +3,8 @@
  * @description Module for initializing the application.
  */
 
-import { colorMap, contentElms, genderMap, headerElms, mobileFilterButton, pokemonData, sidebarContainer, typeMap } from '../config/constants.js';
-import apiService from '../services/api-service.js';
-import { filterData, filterDataFromSearchBar, loadNextBatch } from './core.js';
+import { contentElms, headerElms, mobileFilterButton, sidebarContainer } from '../config/constants.js';
+import { getPokemonColors, getPokemonGenders, getPokemonTypes, filterData, filterDataFromSearchBar, getPokemonData, loadNextBatch } from './core.js';
 import { resetAllFilters, resetColorFilterClick, resetGenderFilterClick, resetSearchBoxFilter, resetTypeFilterClick } from "./filters.js";
 import { hideSidebar, showSidebar } from "./ui.js";
 
@@ -16,20 +15,20 @@ import { hideSidebar, showSidebar } from "./ui.js";
  * @function
  * @returns {void} This function does not return any value.
  */
-const initializeEventListeners = () => {
+const initializeEventListeners = async () => {
 
     headerElms.searchInput.addEventListener('input', filterDataFromSearchBar);
     headerElms.resetSearchBox.addEventListener('click', resetSearchBoxFilter);
 
-    sidebarContainer.addEventListener('click', (event) => {
-        if (event.target.matches('#reset-type-button')) resetTypeFilterClick();
-        if (event.target.matches('#reset-color-button')) resetColorFilterClick();
-        if (event.target.matches('#reset-gender-button')) resetGenderFilterClick();
+    sidebarContainer.addEventListener('click', async (event) => {
+        if (event.target.matches('#reset-type-button')) await resetTypeFilterClick();
+        if (event.target.matches('#reset-color-button')) await resetColorFilterClick();
+        if (event.target.matches('#reset-gender-button')) await resetGenderFilterClick();
         if (event.target.matches('#reset-all-button')) resetAllFilters();
         if (event.target.closest('.sidebar__close-button')) hideSidebar();
     });
 
-    sidebarContainer.querySelector('.sidebar__main-fieldset').addEventListener('change', filterData);
+    sidebarContainer.querySelector('.sidebar__main-fieldset').addEventListener('change', await filterData);
 
     contentElms.loadMoreButton.addEventListener('click', loadNextBatch);
 
@@ -46,17 +45,14 @@ const loadInitialData = async () => {
     contentElms.loader.show();
 
     try {
-        pokemonData.push(...await apiService.fetchPokemonData());
-        filterData();
+        await Promise.all([
+            getPokemonData(),
+            getPokemonTypes(),
+            getPokemonColors(),
+            getPokemonGenders()
+        ]);
 
-        const types = await apiService.fetchPokemonTypes();
-        Object.entries(types).forEach(([key, value]) => typeMap.set(key, value));
-
-        const colors = await apiService.fetchPokemonColors();
-        Object.entries(colors).forEach(([key, value]) => colorMap.set(key, value));
-
-        const genders = await apiService.fetchPokemonGenders();
-        Object.entries(genders).forEach(([key, value]) => genderMap.set(key, value));
+        await filterData();
     } catch (error) {
         console.error('Error loading initial data:', error);
     } finally {
@@ -71,7 +67,7 @@ const loadInitialData = async () => {
  */
 const initializeComponent = async () => {
     initializeEventListeners();
-    loadInitialData();
+    await loadInitialData();
 }
 
 // Set up the event to load initial data when the document is loaded.

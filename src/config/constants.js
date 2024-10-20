@@ -11,30 +11,6 @@ export const API_BASE_URL = 'https://pokeapi.co/api/v2';
 export const API_ASSETS_URL = 'https://assets.pokemon.com/assets';
 
 /**
- * Array to hold the initial Pokémon data.
- * @type {Array<Object>}
- */
-export const pokemonData = [];
-
-/**
- * Map to hold Pokémon types.
- * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
- */
-export const typeMap = new Map();
-
-/**
- * Map to hold Pokémon colors.
- * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
- */
-export const colorMap = new Map();
-
-/**
- * Map to hold Pokémon genders.
- * @type {Map<string, {url: string, data: Promise<Array<string>> | Array<string> | null}>}
- */
-export const genderMap = new Map();
-
-/**
  * @const {HTMLElement} header - The header container element.
  */
 const headerContainer = document.getElementById('header');
